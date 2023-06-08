@@ -112,7 +112,7 @@ class Ventana2(QMainWindow):
         self.boton4.setFont(self.font)
         self.boton4.setFixedHeight(100)
         self.boton4.setFixedWidth(100)
-        self.boton4.setStyleSheet("QPushButton { border-image: url(Imagenes/logo2.png)}")
+        self.boton4.setStyleSheet("QPushButton { border-image: url(Imagenes/logo1.png)}")
         self.boton4.setGeometry(250, 65, 400, 400)
 
 

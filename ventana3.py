@@ -1,9 +1,10 @@
 import sys
 
+from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QFont, QPixmap
 from PyQt5.QtWidgets import QDesktopWidget, QLabel, QApplication, QMainWindow, QHBoxLayout, QPushButton, QLineEdit, \
-    QFormLayout, QWidget, QVBoxLayout, QComboBox
+    QFormLayout, QWidget, QVBoxLayout, QComboBox, QBoxLayout, QCalendarWidget
 
 
 class Ventana3(QMainWindow):
@@ -14,7 +15,7 @@ class Ventana3(QMainWindow):
         self.ventanaAnterior = anterior
         self.setWindowTitle("AGENDAR")
 
-        self.ancho = 600
+        self.ancho = 800
         self.alto = 600
         self.resize(self.ancho, self.alto)
 
@@ -34,6 +35,15 @@ class Ventana3(QMainWindow):
         # Estabelecemos la ventana de fondo con la venta central
         self.setCentralWidget(self.fondo)
 
+        self.titulo1 = QLabel("AGENDAR CITA", self)
+
+        # Establecemos la posición y el tamaño de la etiqueta
+        self.titulo1.setGeometry(410, 120, 100, 20)
+        self.titulo1.setAlignment(Qt.AlignCenter)
+        self.titulo1.setStyleSheet("color: #000000;")
+        self.font = QFont("Arial Rounded MT Bold", 16)
+        self.titulo1.setFont(self.font)
+
         # Creamos un objeto QLabel para el campo de texto
         self.campo_texto = QLabel(self)
         self.campo_texto.setText("Nombre:")
@@ -43,11 +53,11 @@ class Ventana3(QMainWindow):
 
         # Creamos un objeto QLineEdit para el campo de texto
         self.line_edit = QLineEdit(self)
-        self.line_edit.setPlaceholderText("...")
+        self.line_edit.setPlaceholderText("Ingrese su nombre...")
         self.line_edit.setStyleSheet("background-color: #A3D0D7 ; color: #000000; border-radius:7px;")
         self.font = QFont("Arial Rounded MT Bold", 9)
         self.line_edit.setFont(self.font)
-        self.line_edit.setFixedWidth(140)
+        self.line_edit.setFixedWidth(300)
         self.line_edit.setFixedHeight(25)
 
         # Creamos un objeto QLabel para el campo de texto
@@ -59,11 +69,11 @@ class Ventana3(QMainWindow):
 
         # Creamos un objeto QLineEdit para el campo de texto
         self.line_edit2 = QLineEdit(self)
-        self.line_edit2.setPlaceholderText("...")
+        self.line_edit2.setPlaceholderText("Ingrese su apellido...")
         self.line_edit2.setStyleSheet("background-color: #A3D0D7 ; color: #000000; border-radius:7px;")
         self.font = QFont("Arial Rounded MT Bold", 9)
         self.line_edit2.setFont(self.font)
-        self.line_edit2.setFixedWidth(140)
+        self.line_edit2.setFixedWidth(300)
         self.line_edit2.setFixedHeight(25)
 
         # Creamos un objeto QLabel para el campo de texto
@@ -75,7 +85,7 @@ class Ventana3(QMainWindow):
 
         # Creamos un objeto QLineEdit para el campo de texto
         self.line_edit3 = QLineEdit(self)
-        self.line_edit3.setPlaceholderText("...")
+        self.line_edit3.setPlaceholderText("DD/MM/AA")
         self.line_edit3.setStyleSheet("background-color: #A3D0D7 ; color: #000000; border-radius:7px;")
         self.font = QFont("Arial Rounded MT Bold", 9)
         self.line_edit3.setFont(self.font)
@@ -91,7 +101,7 @@ class Ventana3(QMainWindow):
 
         # Creamos un objeto QLineEdit para el campo de texto
         self.line_edit4 = QLineEdit(self)
-        self.line_edit4.setPlaceholderText("...")
+        self.line_edit4.setPlaceholderText("00:00")
         self.line_edit4.setStyleSheet("background-color: #A3D0D7 ; color: #000000; border-radius:7px;")
         self.font = QFont("Arial Rounded MT Bold", 9)
         self.line_edit4.setFont(self.font)
@@ -109,7 +119,7 @@ class Ventana3(QMainWindow):
         self.lista_desplegable.setStyleSheet("background-color: #A3D0D7 ; color: #000000; border-radius:7px;")
         self.font = QFont("Arial Rounded MT Bold", 9)
         self.lista_desplegable.setFont(self.font)
-        self.lista_desplegable.addItem("")
+        self.lista_desplegable.addItem("Eliga su corte")
         self.lista_desplegable.addItem("Corte Completo")
         self.lista_desplegable.addItem("Solo barba")
         self.lista_desplegable.addItem("Bases solas")
@@ -141,11 +151,11 @@ class Ventana3(QMainWindow):
 
         # Creamos un objeto QLineEdit para el campo de texto
         self.line_edit6 = QLineEdit(self)
-        self.line_edit6.setPlaceholderText("...")
+        self.line_edit6.setPlaceholderText("Ingrese su documento...")
         self.line_edit6.setStyleSheet("background-color: #A3D0D7 ; color: #000000; border-radius:7px;")
         self.font = QFont("Arial Rounded MT Bold", 9)
         self.line_edit6.setFont(self.font)
-        self.line_edit6.setFixedWidth(140)
+        self.line_edit6.setFixedWidth(300)
         self.line_edit6.setFixedHeight(25)
 
         # Creamos un objeto QLabel para el campo de texto
@@ -157,11 +167,11 @@ class Ventana3(QMainWindow):
 
         # Creamos un objeto QLineEdit para el campo de texto
         self.line_edit7 = QLineEdit(self)
-        self.line_edit7.setPlaceholderText("...")
+        self.line_edit7.setPlaceholderText("##########")
         self.line_edit7.setStyleSheet("background-color: #A3D0D7 ; color: #000000; border-radius:7px;")
         self.font = QFont("Arial Rounded MT Bold", 9)
         self.line_edit7.setFont(self.font)
-        self.line_edit7.setFixedWidth(140)
+        self.line_edit7.setFixedWidth(200)
         self.line_edit7.setFixedHeight(25)
 
         self.boton = QPushButton("Volver", self)
@@ -178,7 +188,7 @@ class Ventana3(QMainWindow):
         self.boton.leaveEvent = lambda event: self.boton.setStyleSheet(
             "background-color: #A3D0D7; color: #000000; padding:7px;"
             "border-radius:5px;")
-        self.boton.clicked.connect(self.on_Button_Clicked)
+        self.boton.clicked.connect(self.on_Button_Clicked_volver)
 
         self.boton1 = QPushButton("Ingresar", self)
         self.boton1.setStyleSheet("background-color: #A3D0D7; color: #000000; padding:7px;"
@@ -194,7 +204,7 @@ class Ventana3(QMainWindow):
         self.boton1.leaveEvent = lambda event: self.boton1.setStyleSheet(
             "background-color: #A3D0D7; color: #000000; padding:7px;"
             "border-radius:5px;")
-        self.boton1.clicked.connect(self.on_Button_Clicked1)
+        self.boton1.clicked.connect(self.on_Button_Clicked_ingresar)
 
 
         self.boton2 = QPushButton("Limpiar", self)
@@ -211,7 +221,7 @@ class Ventana3(QMainWindow):
         self.boton2.leaveEvent = lambda event: self.boton2.setStyleSheet(
             "background-color: #A3D0D7; color: #000000; padding:7px;"
             "border-radius:5px;")
-        self.boton2.clicked.connect(self.on_Button_Clicked2)
+        self.boton2.clicked.connect(self.on_Button_Clicked_limpiar)
 
         self.label = QLabel(self)
         self.pixmap = QPixmap("Imagenes/logo2.png")  # Reemplaza con la ruta de tu imagen
@@ -222,43 +232,59 @@ class Ventana3(QMainWindow):
 
         self.hbox = QHBoxLayout()
         self.hbox.addWidget(self.boton)
+        self.hbox.addSpacing(10)  # Agregar espacio de 10 píxeles entre los botones
         self.hbox.addWidget(self.boton1)
+        self.hbox.addSpacing(10)  # Agregar espacio de 10 píxeles entre los botones
         self.hbox.addWidget(self.boton2)
 
         self.form_layout = QFormLayout()
-        self.espacioBlanco = QLabel("")
+        self.form_layout.setVerticalSpacing(10)  # Establecer espaciado vertical de 10 píxeles
+
+        self.form_layout.addRow(self.titulo1)
+
         self.form_layout.addRow(self.label)
         self.espacioBlanco = QLabel("")
-        self.form_layout.addRow(self.campo_texto, self.line_edit)
-        self.espacioBlanco = QLabel("")
-        self.form_layout.addRow(self.campo_texto2, self.line_edit2)
-        self.espacioBlanco = QLabel("")
+
         self.form_layout.addRow(self.campo_texto5, self.line_edit6)
         self.espacioBlanco = QLabel("")
+
+        self.form_layout.addRow(self.campo_texto, self.line_edit)
+        self.espacioBlanco = QLabel("")
+
+        self.form_layout.addRow(self.campo_texto2, self.line_edit2)
+        self.espacioBlanco = QLabel("")
+
         self.form_layout.addRow(self.campo_texto6, self.line_edit7)
         self.espacioBlanco = QLabel("")
+
         self.form_layout.addRow(self.campo_texto1, self.line_edit3)
         self.espacioBlanco = QLabel("")
+
         self.form_layout.addRow(self.campo_texto3, self.line_edit4)
         self.espacioBlanco = QLabel("")
+
         self.form_layout.addRow(self.campo_texto4, self.lista_desplegable)
         self.espacioBlanco = QLabel("")
+
         self.form_layout.addRow(self.hbox)
-
-
-
-
-
-
-
 
         self.widget1 = QWidget()
         self.widget1.setLayout(self.form_layout)
 
-        self.main_layout = QVBoxLayout()
-        self.main_layout.addWidget(self.widget1, alignment=Qt.AlignCenter)
+        self.calendar_widget = QCalendarWidget()  # Código del calendario
+        self.calendar_widget.setFixedSize(300,300)
 
-        self.main_layout.setAlignment(Qt.AlignCenter)
+        style_sheet = """QCalendarWidget QWidget#qt_calendar_navigationbar { alternate-background-color: #f0f0f0; } 
+        QCalendarWidget QToolButton { background-color: #f0f0f0; border: none;width: 20px;height: 20px;} 
+        QCalendarWidget QToolButton:hover {background-color: #d0d0d0;} QCalendarWidget QToolButton:pressed 
+        {background-color: #a0a0a0;}"""
+
+        self.main_layout = QHBoxLayout()  # Cambiamos a QHBoxLayout para colocar el formulario y el calendario en una misma línea
+
+        self.main_layout.addWidget(self.widget1)
+        self.main_layout.addStretch(1)  # Agregamos un espacio elástico para separar el formulario del calendario
+
+        self.main_layout.addWidget(self.calendar_widget)  # Agregamos el calendario
 
         self.widget_central = QWidget()
         self.widget_central.setLayout(self.main_layout)
@@ -266,15 +292,14 @@ class Ventana3(QMainWindow):
         # Establecemos el layout principal en la ventana
         self.setCentralWidget(self.widget_central)
 
-
-    def on_Button_Clicked(self):
+    def on_Button_Clicked_volver(self):
         self.hide()
         self.ventanaAnterior.show()
 
-    def on_Button_Clicked1(self):
+    def on_Button_Clicked_ingresar(self):
         pass
 
-    def on_Button_Clicked2(self):
+    def on_Button_Clicked_limpiar(self):
         self.line_edit.clear()
         self.line_edit2.clear()
         self.line_edit3.clear()
