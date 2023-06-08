@@ -136,13 +136,6 @@ class Ventana2(QMainWindow):
 
 
 
-
-
-        # Crear layout horizontal y agregar títulos
-        #hbox = QHBoxLayout()
-        #hbox.addWidget(self.titulo)
-        #hbox.addWidget(self.titulo1)
-
     def on_Button_Clicked(self):
             self.hide()
             self.ventana3 = Ventana3(self)
@@ -157,10 +150,6 @@ class Ventana2(QMainWindow):
     def on_Button_Clicked2(self):
         self.hide()
         self.ventanaAnterior.show()
-
-
-
-
 
 
     def initUI(self):
