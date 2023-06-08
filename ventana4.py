@@ -1,15 +1,16 @@
 import sys
 
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QDesktopWidget, QLabel, QApplication, QMainWindow
+from PyQt5.QtWidgets import QDesktopWidget, QLabel, QApplication, QMainWindow, QVBoxLayout, QTextEdit
 
 
 class Ventana4(QMainWindow):
-    def __init__(self, parent=None):
-        super(Ventana4, self).__init__(parent)
+    def __init__(self, citas):
+        super().__init__()
+        self.citas = citas
         self.initUI()
 
-        self.setWindowTitle("RECORDATORIO")
+        self.setWindowTitle("CONSULTAR")
 
         self.ancho = 500
         self.alto = 500
@@ -31,7 +32,20 @@ class Ventana4(QMainWindow):
         # Estabelecemos la ventana de fondo con la venta central
         self.setCentralWidget(self.fondo)
 
+    def initUI(self):
+        layout = QVBoxLayout()
+        self.text_edit = QTextEdit()
+        layout.addWidget(self.text_edit)
+        self.setLayout(layout)
 
+        # Mostrar los datos de las citas en el widget de texto
+        self.mostrar_citas()
+
+
+def mostrar_citas(self):
+    for cita in self.citas:
+        texto_cita = ", ".join(cita)
+        self.text_edit.append(texto_cita)
 
     def initUI(self):
         self.setWindowTitle('Ventana4')

@@ -4,7 +4,9 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QFont, QPixmap
 from PyQt5.QtWidgets import QDesktopWidget, QLabel, QApplication, QMainWindow, QHBoxLayout, QPushButton, QLineEdit, \
-    QFormLayout, QWidget, QVBoxLayout, QComboBox, QBoxLayout, QCalendarWidget
+    QFormLayout, QWidget, QVBoxLayout, QComboBox, QBoxLayout, QCalendarWidget, QProgressBar, QMessageBox
+
+from ventana4 import Ventana4
 
 
 class Ventana3(QMainWindow):
@@ -85,6 +87,7 @@ class Ventana3(QMainWindow):
 
         # Creamos un objeto QLineEdit para el campo de texto
         self.line_edit3 = QLineEdit(self)
+        self.line_edit3.setReadOnly(True)
         self.line_edit3.setPlaceholderText("DD/MM/AA")
         self.line_edit3.setStyleSheet("background-color: #A3D0D7 ; color: #000000; border-radius:7px;")
         self.font = QFont("Arial Rounded MT Bold", 9)
@@ -101,7 +104,7 @@ class Ventana3(QMainWindow):
 
         # Creamos un objeto QLineEdit para el campo de texto
         self.line_edit4 = QLineEdit(self)
-        self.line_edit4.setPlaceholderText("00:00")
+        self.line_edit4.setPlaceholderText("HH:MM")
         self.line_edit4.setStyleSheet("background-color: #A3D0D7 ; color: #000000; border-radius:7px;")
         self.font = QFont("Arial Rounded MT Bold", 9)
         self.line_edit4.setFont(self.font)
@@ -204,7 +207,7 @@ class Ventana3(QMainWindow):
         self.boton1.leaveEvent = lambda event: self.boton1.setStyleSheet(
             "background-color: #A3D0D7; color: #000000; padding:7px;"
             "border-radius:5px;")
-        self.boton1.clicked.connect(self.on_Button_Clicked_ingresar)
+        self.boton1.clicked.connect(self.guardar_datos)
 
 
         self.boton2 = QPushButton("Limpiar", self)
@@ -272,12 +275,12 @@ class Ventana3(QMainWindow):
         self.widget1.setLayout(self.form_layout)
 
         self.calendar_widget = QCalendarWidget()  # Código del calendario
-        self.calendar_widget.setFixedSize(300,300)
+        self.calendar_widget.setFixedSize(315,270)
 
-        style_sheet = """QCalendarWidget QWidget#qt_calendar_navigationbar { alternate-background-color: #f0f0f0; } 
-        QCalendarWidget QToolButton { background-color: #f0f0f0; border: none;width: 20px;height: 20px;} 
-        QCalendarWidget QToolButton:hover {background-color: #d0d0d0;} QCalendarWidget QToolButton:pressed 
-        {background-color: #a0a0a0;}"""
+        self.calendar_widget.selectionChanged.connect(self.actualizar_fecha)
+        self.font = QFont("Arial Rounded MT Bold", 9)
+        self.calendar_widget.setFont(self.font)
+        self.calendar_widget.setStyleSheet("Background-color:#FFFFFF; color:#000000;border: 1px solid #000000;")
 
         self.main_layout = QHBoxLayout()  # Cambiamos a QHBoxLayout para colocar el formulario y el calendario en una misma línea
 
@@ -292,12 +295,56 @@ class Ventana3(QMainWindow):
         # Establecemos el layout principal en la ventana
         self.setCentralWidget(self.widget_central)
 
+
+    def actualizar_fecha(self):
+        # Obtiene la fecha seleccionada y la muestra en el QLabel
+        fecha = self.calendar_widget.selectedDate()
+        fecha_str = fecha.toString("dd/MM/yyyy")
+        self.line_edit3.setText(fecha_str)
+
     def on_Button_Clicked_volver(self):
         self.hide()
         self.ventanaAnterior.show()
 
-    def on_Button_Clicked_ingresar(self):
-        pass
+    def guardar_datos(self):
+        # Obtiene el texto ingresado en los cuadros de texto
+        self.texto1 = self.line_edit.text()
+        self.texto2 = self.line_edit2.text()
+        self.texto3 = self.line_edit3.text()
+        self.texto4 = self.line_edit4.text()
+        self.texto5 = self.lista_desplegable.currentText()
+        self.texto6 = self.line_edit6.text()
+        self.texto7 = self.line_edit7.text()
+
+        # Verifica si los campos están vacíos
+        if self.texto1 == "" or self.texto2 == "" or self.texto3 == "" or self.texto4 == "" or self.texto5 == "" or self.texto6 == "" or self.texto7 == "":
+            # Mostrar mensaje de campos vacíos
+            QMessageBox.warning(self, "Campos Vacíos", "Por favor, complete todos los campos.")
+        else:
+            # Guarda los datos en un archivo de texto
+            with open("clientes.txt", "a") as archivo:
+                archivo.write(self.texto1 + ",")
+                archivo.write(self.texto2 + ",")
+                archivo.write(self.texto3 + ",")
+                archivo.write(self.texto4 + ",")
+                archivo.write(self.texto5 + ",")
+                archivo.write(self.texto6 + ",")
+                archivo.write(self.texto7 + "\n")
+
+                # Limpiar los campos
+                self.line_edit.clear()
+                self.line_edit2.clear()
+                self.line_edit3.clear()
+                self.line_edit4.clear()
+                # Restablecer el valor seleccionado en la lista desplegable
+                self.lista_desplegable.setCurrentIndex(0)
+                self.line_edit6.clear()
+                self.line_edit7.clear()
+
+            # Mostrar mensaje de datos guardados exitosamente
+            QMessageBox.information(self, "Datos Guardados", "Los datos han sido guardados correctamente.")
+
+
 
     def on_Button_Clicked_limpiar(self):
         self.line_edit.clear()
@@ -315,9 +362,7 @@ class Ventana3(QMainWindow):
         self.setWindowIcon(QIcon('Imagenes/logo1.png.'))
 
     def manejar_seleccion(self, index):
-        opcion_seleccionada = self.lista_desplegable.currentText()
-        # Realiza las acciones correspondientes según la opción seleccionada
-        print(f"Opción seleccionada: {opcion_seleccionada}")
+        pass
 
 if __name__ == '__ventana3__':
     app = QApplication(sys.argv)
