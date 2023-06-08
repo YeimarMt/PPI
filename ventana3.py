@@ -46,6 +46,12 @@ class Ventana3(QMainWindow):
         self.font = QFont("Arial Rounded MT Bold", 16)
         self.titulo1.setFont(self.font)
 
+        self.campo_texto = QLabel(self)
+        self.campo_texto.setText("Correo:")
+        self.campo_texto.setStyleSheet("color: #000000;")
+        self.font = QFont("Arial Rounded MT Bold", 10)
+        self.campo_texto.setFont(self.font)
+
         # Creamos un objeto QLabel para el campo de texto
         self.campo_texto = QLabel(self)
         self.campo_texto.setText("Nombre:")
@@ -59,7 +65,7 @@ class Ventana3(QMainWindow):
         self.line_edit.setStyleSheet("background-color: #A3D0D7 ; color: #000000; border-radius:7px;")
         self.font = QFont("Arial Rounded MT Bold", 9)
         self.line_edit.setFont(self.font)
-        self.line_edit.setFixedWidth(300)
+        self.line_edit.setFixedWidth(200)
         self.line_edit.setFixedHeight(25)
 
         # Creamos un objeto QLabel para el campo de texto
@@ -75,7 +81,7 @@ class Ventana3(QMainWindow):
         self.line_edit2.setStyleSheet("background-color: #A3D0D7 ; color: #000000; border-radius:7px;")
         self.font = QFont("Arial Rounded MT Bold", 9)
         self.line_edit2.setFont(self.font)
-        self.line_edit2.setFixedWidth(300)
+        self.line_edit2.setFixedWidth(200)
         self.line_edit2.setFixedHeight(25)
 
         # Creamos un objeto QLabel para el campo de texto
@@ -158,7 +164,7 @@ class Ventana3(QMainWindow):
         self.line_edit6.setStyleSheet("background-color: #A3D0D7 ; color: #000000; border-radius:7px;")
         self.font = QFont("Arial Rounded MT Bold", 9)
         self.line_edit6.setFont(self.font)
-        self.line_edit6.setFixedWidth(300)
+        self.line_edit6.setFixedWidth(200)
         self.line_edit6.setFixedHeight(25)
 
         # Creamos un objeto QLabel para el campo de texto
@@ -174,8 +180,9 @@ class Ventana3(QMainWindow):
         self.line_edit7.setStyleSheet("background-color: #A3D0D7 ; color: #000000; border-radius:7px;")
         self.font = QFont("Arial Rounded MT Bold", 9)
         self.line_edit7.setFont(self.font)
-        self.line_edit7.setFixedWidth(200)
+        self.line_edit7.setFixedWidth(150)
         self.line_edit7.setFixedHeight(25)
+
 
         self.boton = QPushButton("Volver", self)
         self.boton.setStyleSheet("background-color: #A3D0D7; color: #000000; padding:7px;"
@@ -226,8 +233,10 @@ class Ventana3(QMainWindow):
             "border-radius:5px;")
         self.boton2.clicked.connect(self.on_Button_Clicked_limpiar)
 
+
+
         self.label = QLabel(self)
-        self.pixmap = QPixmap("Imagenes/logo2.png")  # Reemplaza con la ruta de tu imagen
+        self.pixmap = QPixmap("Imagenes/logo1.png")  # Reemplaza con la ruta de tu imagen
         self.label.setPixmap(self.pixmap)
         self.label.setAlignment(Qt.AlignCenter)  # Alinea la imagen al centro
         self.label.setStyleSheet("margin: 10px;")  # Agrega un margen de 20 píxeles alrededor de la imagen
