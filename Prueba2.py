@@ -1,39 +1,39 @@
 import sys
+from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidget, QTableWidgetItem
 
-from PyQt5.QtCore import QLocale
-from PyQt5.QtWidgets import QAction, QHBoxLayout, QFormLayout, QWidget, QSizePolicy, QSpacerItem, QLineEdit, \
-    QDateTimeEdit, QComboBox, QApplication, QMainWindow
-
-
-class ventana(QMainWindow):
+class Ventana4(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.nombre_ventana = "valorizador"
-        self.initUI()
-        self.resize(640, 480)
 
-    def initUI(self):
-        self.setWindowTitle(self.nombre_ventana)
-        menu=self.menuBar()
-        archivo=menu.addMenu("Archivo")
-        boton_guardar=QAction("Guardar",self)
+        # Crear la tabla
+        self.table = QTableWidget(self)
+        self.setCentralWidget(self.table)
 
-        widget = QWidget(self)
-        self.setCentralWidget(widget)
-        flay = QFormLayout()
+        # Leer los datos del archivo
+        self.datos = self.leer_archivo('clientes.txt')
 
+        # Configurar la tabla
+        self.table.setRowCount(len(self.datos))
+        self.table.setColumnCount(8)  # Supongamos que tienes 3 columnas en tu archivo
 
+        # Establecer encabezados de columna
+        encabezados = ['Documento ', 'Nombre', 'Apellidos', '']
+        self.table.setHorizontalHeaderLabels(encabezados)
 
-        cal = QDateTimeEdit(self)
-        cal.setCalendarPopup(True)
-        cal.setDisplayFormat("dd-MM-yyyy")
-        cal.calendarWidget().setLocale(QLocale(QLocale.Spanish))
+        # Llenar la tabla con los datos
+        for i, fila in enumerate(self.datos):
+            for j, columna in enumerate(fila):
+                item = QTableWidgetItem(columna)
+                self.table.setItem(i, j, item)
 
-
-        flay.addRow("Fecha vencimiento", cal)
+    def leer_archivo(self, archivo):
+        # Leer el archivo y devolver los datos como una lista de filas
+        with open(archivo, 'r') as file:
+            datos = [linea.strip().split('\t') for linea in file]
+        return datos
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = ventana()
-    ex.show()
+    ventana = Ventana4()
+    ventana.show()
     sys.exit(app.exec_())

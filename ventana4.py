@@ -1,19 +1,22 @@
 import sys
-
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QDesktopWidget, QLabel, QApplication, QMainWindow, QVBoxLayout, QTextEdit
+from PyQt5.QtGui import QIcon, QFont
+from PyQt5.QtWidgets import QDesktopWidget, QLabel, QApplication, QMainWindow, QTableWidgetItem, QTableWidget, \
+    QFormLayout, QWidget, QVBoxLayout, QHeaderView, QPushButton
+from PyQt5.QtCore import Qt
 
 
 class Ventana4(QMainWindow):
-    def __init__(self, citas):
+    def __init__(self, ventana_anterior):
         super().__init__()
-        self.citas = citas
+        self.ventana_anterior = ventana_anterior
         self.initUI()
 
-        self.setWindowTitle("CONSULTAR")
+    def initUI(self):
+        self.setWindowTitle('CONSULTA')
+        self.setWindowIcon(QIcon('Imagenes/logo1.png'))
 
-        self.ancho = 500
-        self.alto = 500
+        self.ancho = 900
+        self.alto = 600
         self.resize(self.ancho, self.alto)
 
         self.pantalla = self.frameGeometry()
@@ -26,34 +29,86 @@ class Ventana4(QMainWindow):
 
         self.setStyleSheet("background-color: #DBEBF6; ")
 
-        #Establecemos el fondo pricipal
-        self.fondo = QLabel(self)
+        self.boton = QPushButton("Volver", self)
+        self.boton.setStyleSheet("background-color: #A3D0D7; color: #000000; padding:7px;"
+                                 "border-radius:5px;")
+        self.font = QFont("Arial Rounded MT Bold", 10)
+        self.boton.setFont(self.font)
+        self.boton.setFixedHeight(40)
+        self.boton.setFixedWidth(100)
+        self.boton.setCursor(Qt.PointingHandCursor)
+        self.boton.enterEvent = lambda event: self.boton.setStyleSheet(
+            "background-color: #A3D0D7; color: #000000; padding:7px;"
+            "border-radius:5px;")
+        self.boton.leaveEvent = lambda event: self.boton.setStyleSheet(
+            "background-color: #A3D0D7; color: #000000; padding:7px;"
+            "border-radius:5px;")
+        self.boton.clicked.connect(self.on_Button_Clicked_volver)
 
-        # Estabelecemos la ventana de fondo con la venta central
-        self.setCentralWidget(self.fondo)
+        # Crear la tabla
+        self.table = QTableWidget()
 
-    def initUI(self):
-        layout = QVBoxLayout()
-        self.text_edit = QTextEdit()
-        layout.addWidget(self.text_edit)
-        self.setLayout(layout)
+        # Leer los datos del archivo
+        self.datos = self.leer_archivo('clientes.txt')
 
-        # Mostrar los datos de las citas en el widget de texto
-        self.mostrar_citas()
+        # Configurar la tabla
+        self.table.setRowCount(len(self.datos))
+        self.table.setColumnCount(8)  # Supongamos que tienes 8 columnas en tu archivo
 
+        # Establecer encabezados de columna
+        self.encabezados = ['Documento', 'Nombre', 'Apellidos', 'Telefono', 'Fecha', 'Hora', 'Tipo de corte', 'Barbero']
+        self.table.setHorizontalHeaderLabels(self.encabezados)
 
-def mostrar_citas(self):
-    for cita in self.citas:
-        texto_cita = ", ".join(cita)
-        self.text_edit.append(texto_cita)
+        # Llenar la tabla con los datos
+        for i, fila in enumerate(self.datos):
+            for j, columna in enumerate(fila):
+                item = QTableWidgetItem(columna)
+                self.table.setItem(i, j, item)
 
-    def initUI(self):
-        self.setWindowTitle('Ventana4')
-        self.setWindowIcon(QIcon('Imagenes/logo1.png.'))
+        # Ajustar el alto de las filas
+        self.table.verticalHeader().setDefaultSectionSize(30)  # Alto de las filas
+        self.table.horizontalHeader().setDefaultSectionSize(105)
 
+        self.table.resize(600, 100)
 
-if __name__ == '__ventana4__':
+        # Permitir que la tabla se ajuste al tamaño de la ventana
+        self.table.setSizeAdjustPolicy(QTableWidget.AdjustToContents)
+
+        # Crear un layout vertical y agregar la tabla y el botón
+        # Crear un layout vertical y agregar la tabla
+        self.layout = QVBoxLayout()
+        self.layout.addWidget(self.table)
+
+        # Crear un layout vertical para el botón
+        self.boton_layout = QVBoxLayout()
+        self.boton_layout.addWidget(self.boton)
+        self.boton_layout.setAlignment(Qt.AlignCenter)
+
+        # Agregar el layout del botón al layout principal
+        self.layout.addLayout(self.boton_layout)
+
+        # Crear un widget central y establecer el layout
+        self.central_widget = QWidget()
+        self.central_widget.setLayout(self.layout)
+
+        # Establecer el widget central en la ventana
+        self.setCentralWidget(self.central_widget)
+
+        self.central_widget.setStyleSheet("border: none;")
+
+    def leer_archivo(self, archivo):
+        # Leer el archivo y devolver los datos como una lista de filas
+        with open(archivo, 'r') as file:
+            self.datos = [linea.strip().split(',') for linea in file]
+        return self.datos
+
+    def on_Button_Clicked_volver(self):
+        self.ventana_anterior.show()  # Mostrar la ventana anterior
+        self.close()  # Cerrar la ventana actual
+
+if __name__ == '__main__':
     app = QApplication(sys.argv)
     ventana4 = Ventana4()
     ventana4.show()
     sys.exit(app.exec_())
+

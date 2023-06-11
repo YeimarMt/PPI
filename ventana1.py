@@ -141,6 +141,8 @@ class Ventana1(QMainWindow):
 
         self.widget1 = QWidget()
         self.widget1.setLayout(self.form_layout)
+        # Aplicar el estilo CSS para agregar un borde
+
 
         self.main_layout = QVBoxLayout()
         self.main_layout.addWidget(self.widget1, alignment=Qt.AlignCenter)
@@ -153,6 +155,8 @@ class Ventana1(QMainWindow):
 
         # Establecemos el layout principal en la ventana
         self.setCentralWidget(self.widget_central)
+
+
 
     def on_button_clicked(self):
         usuario = self.line_edit.text()

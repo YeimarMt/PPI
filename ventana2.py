@@ -143,7 +143,7 @@ class Ventana2(QMainWindow):
 
     def on_Button_Clicked1(self):
             self.hide()
-            self.ventana4 = Ventana4()
+            self.ventana4 = Ventana4(self)
             self.ventana4.show()
 
 
