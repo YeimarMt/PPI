@@ -1,7 +1,7 @@
 import sys
 
 from PyQt5 import QtCore
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QDate
 from PyQt5.QtGui import QIcon, QFont, QPixmap
 from PyQt5.QtWidgets import QDesktopWidget, QLabel, QApplication, QMainWindow, QHBoxLayout, QPushButton, QLineEdit, \
     QFormLayout, QWidget, QVBoxLayout, QComboBox, QBoxLayout, QCalendarWidget, QProgressBar, QMessageBox
@@ -143,13 +143,6 @@ class Ventana3(QMainWindow):
         # Conecta una función para manejar el evento de selección de la lista desplegable
         self.lista_desplegable.currentIndexChanged.connect(self.manejar_seleccion)
 
-        # Creamos un objeto QLineEdit para el campo de texto
-        #self.line_edit5 = QLineEdit(self)
-        #self.line_edit5.setStyleSheet("background-color: #2E86C1 ; color: #FFFFFF; border-radius:7px;")
-        #self.font = QFont("Arial Rounded MT Bold", 9)
-        #self.line_edit5.setFont(self.font)
-        #self.line_edit5.setFixedWidth(150)
-        #self.line_edit5.setFixedHeight(25)
 
         # Creamos un objeto QLabel para el campo de texto
         self.campo_texto5 = QLabel(self)
@@ -182,6 +175,25 @@ class Ventana3(QMainWindow):
         self.line_edit7.setFont(self.font)
         self.line_edit7.setFixedWidth(150)
         self.line_edit7.setFixedHeight(25)
+
+        # Creamos un objeto QLabel para el campo de texto
+        self.campo_texto7 = QLabel(self)
+        self.campo_texto7.setText("Barbero:")
+        self.campo_texto7.setStyleSheet("color: #000000;")
+        self.font = QFont("Arial Rounded MT Bold", 10)
+        self.campo_texto7.setFont(self.font)
+
+        self.lista_desplegable1 = QComboBox(self)
+        self.lista_desplegable1.setStyleSheet("background-color: #A3D0D7 ; color: #000000; border-radius:7px;")
+        self.font = QFont("Arial Rounded MT Bold", 9)
+        self.lista_desplegable1.setFont(self.font)
+        self.lista_desplegable1.addItem("Eliga barbero")
+        self.lista_desplegable1.addItem("Barbero 1")
+        self.lista_desplegable1.addItem("Barbero 2")
+        self.lista_desplegable1.addItem("Barbero 3")
+        self.lista_desplegable1.setFixedWidth(140)
+        self.lista_desplegable1.setFixedHeight(25)
+        self.lista_desplegable1.currentIndexChanged.connect(self.manejar_seleccion)
 
 
         self.boton = QPushButton("Volver", self)
@@ -278,18 +290,26 @@ class Ventana3(QMainWindow):
         self.form_layout.addRow(self.campo_texto4, self.lista_desplegable)
         self.espacioBlanco = QLabel("")
 
+        self.form_layout.addRow(self.campo_texto7, self.lista_desplegable1)
+        self.espacioBlanco = QLabel("")
+
         self.form_layout.addRow(self.hbox)
 
         self.widget1 = QWidget()
         self.widget1.setLayout(self.form_layout)
 
         self.calendar_widget = QCalendarWidget()  # Código del calendario
+        self.current_date = QDate.currentDate()
+        self.calendar_widget.setMinimumDate(QDate(self.current_date.year(), 1, 1))
+        self.calendar_widget.setMaximumDate(QDate(self.current_date.year(), 12, 31))
+        self.calendar_widget.setGridVisible(True)
         self.calendar_widget.setFixedSize(315,270)
-
         self.calendar_widget.selectionChanged.connect(self.actualizar_fecha)
         self.font = QFont("Arial Rounded MT Bold", 9)
         self.calendar_widget.setFont(self.font)
         self.calendar_widget.setStyleSheet("Background-color:#FFFFFF; color:#000000;border: 1px solid #000000;")
+
+
 
         self.main_layout = QHBoxLayout()  # Cambiamos a QHBoxLayout para colocar el formulario y el calendario en una misma línea
 
@@ -324,21 +344,23 @@ class Ventana3(QMainWindow):
         self.texto5 = self.lista_desplegable.currentText()
         self.texto6 = self.line_edit6.text()
         self.texto7 = self.line_edit7.text()
+        self.texto8 = self.lista_desplegable1.currentText()
 
         # Verifica si los campos están vacíos
-        if self.texto1 == "" or self.texto2 == "" or self.texto3 == "" or self.texto4 == "" or self.texto5 == "" or self.texto6 == "" or self.texto7 == "":
+        if self.texto1 == "" or self.texto2 == "" or self.texto3 == "" or self.texto4 == "" or self.texto5 == "" or self.texto6 == "" or self.texto7 == "" or self.texto8 == "":
             # Mostrar mensaje de campos vacíos
             QMessageBox.warning(self, "Campos Vacíos", "Por favor, complete todos los campos.")
         else:
             # Guarda los datos en un archivo de texto
             with open("clientes.txt", "a") as archivo:
+                archivo.write(self.texto6 + ",")
                 archivo.write(self.texto1 + ",")
                 archivo.write(self.texto2 + ",")
                 archivo.write(self.texto3 + ",")
                 archivo.write(self.texto4 + ",")
                 archivo.write(self.texto5 + ",")
-                archivo.write(self.texto6 + ",")
-                archivo.write(self.texto7 + "\n")
+                archivo.write(self.texto7 + ",")
+                archivo.write(self.texto8 + "\n")
 
                 # Limpiar los campos
                 self.line_edit.clear()
@@ -349,6 +371,7 @@ class Ventana3(QMainWindow):
                 self.lista_desplegable.setCurrentIndex(0)
                 self.line_edit6.clear()
                 self.line_edit7.clear()
+                self.lista_desplegable1.setCurrentIndex(0)
 
             # Mostrar mensaje de datos guardados exitosamente
             QMessageBox.information(self, "Datos Guardados", "Los datos han sido guardados correctamente.")

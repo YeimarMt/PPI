@@ -1,6 +1,3 @@
-
-Samuel ,Pelaez Torres ,09/06/2023,12:00 AM,Solo barba,1033177728,3215645504
-Jhon ,Jarlinthon ,10/06/2023,10:00 AM,Barba y corte,43829244,3045745504
-Aida ,Maira Torres ,11/06/2023,11:00 AM,Cejas,98669829,3136922629
-Yeimar ,Lozano ,10/06/2023,12:00 AM,Solo barba,16137137173,3145206666
-Luis ,Zapata,06/06/2023,12:30,Bases solas,111,123456
+samuel,pelaez torres,22/06/2023,214124,Cejas,1033177728,3215645504,Barbero 2
+12341,124,20/06/2023,12412,Bases solas,1033177728,124124,Barbero 3
+1033177728,asfa,fafsa,21/06/2023,asfasf,Barba y corte,asfasf,Barbero 3
