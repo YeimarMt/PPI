@@ -1,8 +1,9 @@
 import sys
-from PyQt5.QtGui import QIcon, QFont
+from PyQt5.QtGui import QIcon, QFont, QPixmap
 from PyQt5.QtWidgets import QDesktopWidget, QLabel, QApplication, QMainWindow, QTableWidgetItem, QTableWidget, \
     QFormLayout, QWidget, QVBoxLayout, QHeaderView, QPushButton
 from PyQt5.QtCore import Qt
+from datetime import datetime
 
 
 class Ventana4(QMainWindow):
@@ -28,6 +29,18 @@ class Ventana4(QMainWindow):
         self.setFixedHeight(self.alto)
 
         self.setStyleSheet("background-color: #DBEBF6; ")
+
+        imagen_label = QLabel(self)
+        imagen_label.setPixmap(
+            QPixmap('imagenes/logo1.png'))  # Reemplaza 'ruta/a/la/imagen.png' con la ruta correcta de la imagen
+        imagen_label.setAlignment(Qt.AlignCenter)
+
+        self.titulo_label = QLabel('Consulta', self)
+        self.titulo_label.setStyleSheet("color: #000000;")
+        self.font = QFont("Arial Rounded MT Bold", 14)
+        self.titulo_label.setFont(self.font)
+        self.titulo_label.setAlignment(Qt.AlignCenter)
+
 
         self.boton = QPushButton("Volver", self)
         self.boton.setStyleSheet("background-color: #A3D0D7; color: #000000; padding:7px;"
@@ -65,7 +78,8 @@ class Ventana4(QMainWindow):
         self.header.setStyleSheet("QHeaderView::section { background-color: #A3D0D7; border: 1px solid #000000; }")
 
         # Llenar la tabla con los datos
-        for i, fila in enumerate(self.datos):
+        sorted_datos = sorted(self.datos, key=lambda x: datetime.strptime(x[3], '%d/%m/%Y'))
+        for i, fila in enumerate(sorted_datos):
             for j, columna in enumerate(fila):
                 item = QTableWidgetItem(columna)
                 self.table.setItem(i, j, item)
@@ -92,10 +106,13 @@ class Ventana4(QMainWindow):
         # Crear un layout vertical y agregar la tabla y el botón
         # Crear un layout vertical y agregar la tabla
         self.layout = QVBoxLayout()
+        self.layout.addWidget(imagen_label)
+        self.layout.addWidget(self.titulo_label)
         self.layout.addWidget(self.table)
 
         # Crear un layout vertical para el botón
         self.boton_layout = QVBoxLayout()
+
         self.boton_layout.addWidget(self.boton)
         self.boton_layout.setAlignment(Qt.AlignCenter)
 

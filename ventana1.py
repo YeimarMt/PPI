@@ -183,8 +183,8 @@ class Ventana1(QMainWindow):
 
     def verificar_usuario(self, usuario, contrasena):
         admin1 = {
-            "usuario": "",
-            "contrasena": ""
+            "usuario": "Admin",
+            "contrasena": "12345"
         }
 
         if usuario == admin1["usuario"] and contrasena == admin1["contrasena"]:

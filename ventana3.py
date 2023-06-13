@@ -111,6 +111,7 @@ class Ventana3(QMainWindow):
 
         # Creamos un objeto QLineEdit para el campo de texto
         self.line_edit4 = QLineEdit(self)
+        self.line_edit4.setReadOnly(True)
         self.line_edit4.setPlaceholderText("HH:MM")
         self.line_edit4.setStyleSheet("background-color: #A3D0D7 ; color: #000000; border-radius:7px;")
         self.font = QFont("Arial Rounded MT Bold", 9)
@@ -193,7 +194,6 @@ class Ventana3(QMainWindow):
         self.lista_desplegable1.addItem("")  # Agregar una opción en blanco
         self.lista_desplegable1.addItem("Barbero 1")
         self.lista_desplegable1.addItem("Barbero 2")
-        self.lista_desplegable1.addItem("Barbero 3")
         self.lista_desplegable1.setFixedWidth(140)
         self.lista_desplegable1.setFixedHeight(25)
         self.lista_desplegable1.setCurrentIndex(0)  # Establecer el índice inicial en la opción en blanco
@@ -234,13 +234,13 @@ class Ventana3(QMainWindow):
         self.boton1.clicked.connect(self.guardar_datos)
 
 
-        self.boton2 = QPushButton("Limpiar", self)
+        self.boton2 = QPushButton("Limpiar datos", self)
         self.boton2.setStyleSheet("background-color: #A3D0D7; color: #000000; padding:7px;"
                                   "border-radius:5px;")
         self.font = QFont("Arial Rounded MT Bold", 10)
         self.boton2.setFont(self.font)
         self.boton2.setFixedHeight(30)
-        self.boton2.setFixedWidth(70)
+        self.boton2.setFixedWidth(105)
         self.boton2.setCursor(Qt.PointingHandCursor)
         self.boton2.enterEvent = lambda event: self.boton2.setStyleSheet(
             "background-color: #A3D0D7; color: #000000; padding:7px;"
@@ -341,10 +341,28 @@ class Ventana3(QMainWindow):
         self.time_edit.setDisplayFormat("hh:mm:ss AP")
         self.time_edit.setStyleSheet("QTimeEdit::up-button, QTimeEdit::down-button { font-size: 24px; }")
         self.time_edit.setFixedSize(150, 30)  # Establecer tamaño fijo para time_edit (ancho: 100px, alto: 30px)
+        self.time_edit.setStyleSheet("background-color: #85C1E9; color: #000000; padding:7px;"
+                                           "border-radius:5px;")
+        self.font = QFont("Arial Rounded MT Bold", 8)
+        self.time_edit.setFont(self.font)
 
         self.set_time_button = QPushButton("Establecer hora")
         self.set_time_button.clicked.connect(self.set_selected_time)
-        self.set_time_button.setFixedSize(150,30)  # Establecer tamaño fijo para set_time_button (ancho: 100px, alto: 30px)
+        self.set_time_button.setFixedSize(140,30)# Establecer tamaño fijo para set_time_button (ancho: 100px, alto: 30px)
+        self.set_time_button.setStyleSheet("background-color: #85C1E9; color: #000000; padding:7px;"
+                      "border-radius:5px;")
+        self.font = QFont("Arial Rounded MT Bold", 8)
+        self.set_time_button.setFont(self.font)
+        self.set_time_button.setCursor(Qt.PointingHandCursor)
+        self.set_time_button.enterEvent = lambda event: self.boton.setStyleSheet(
+            "background-color: #A3D0D7; color: #000000; padding:7px;"
+            "border-radius:5px;")
+        self.set_time_button.leaveEvent = lambda event: self.boton.setStyleSheet(
+            "background-color: #A3D0D7; color: #000000; padding:7px;"
+            "border-radius:5px;")
+
+
+
 
         bottom_right_layout = QGridLayout()
         bottom_right_layout.setSpacing(10)  # Ajustar el espaciado vertical entre filas a 10 píxeles
@@ -376,7 +394,8 @@ class Ventana3(QMainWindow):
         self.clock_label.setText(current_time.toString("hh:mm:ss AP"))  # Cambiar el formato a 12 horas con AM/PM
 
     def set_selected_time(self):
-        pass
+        text = self.time_edit.text()  # Obtener el contenido del QLabel "time_edit"
+        self.line_edit4.setText(text)
 
     def actualizar_fecha(self):
         # Obtiene la fecha seleccionada y la muestra en el QLabel
