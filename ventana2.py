@@ -48,7 +48,7 @@ class Ventana2(QMainWindow):
         # AED6F1
         self.titulo = QLabel("AGENDAR", self)
         self.titulo.setAlignment(Qt.AlignHCenter)
-        self.titulo.setGeometry(15, 400, 20, 20)
+        self.titulo.setGeometry(50, 400, 20, 20)
         self.titulo.setFixedWidth(200)
         self.titulo.setFixedHeight(25)
         self.titulo.setStyleSheet("color: #000000;")
@@ -58,21 +58,13 @@ class Ventana2(QMainWindow):
 
         self.titulo1 = QLabel("CONSULTAR", self)
         self.titulo1.setAlignment(Qt.AlignHCenter)
-        self.titulo1.setGeometry(205, 400, 400, 400)
+        self.titulo1.setGeometry(365, 400, 400, 400)
         self.titulo1.setFixedWidth(200)
         self.titulo1.setFixedHeight(25)
         self.titulo1.setStyleSheet("color: #000000;")
         self.font = QFont("Arial Rounded MT Bold", 14)
         self.titulo1.setFont(self.font)
 
-        self.titulo2 = QLabel("CANCELAR", self)
-        self.titulo2.setAlignment(Qt.AlignHCenter)
-        self.titulo2.setGeometry(395, 400, 400, 400)
-        self.titulo2.setFixedWidth(200)
-        self.titulo2.setFixedHeight(25)
-        self.titulo2.setStyleSheet("color: #000000;")
-        self.font = QFont("Arial Rounded MT Bold", 14)
-        self.titulo2.setFont(self.font)
 
         self.boton = QPushButton("", self)
         #self.boton.setStyleSheet("background-color: #2E86C1; color: #FFFFFF; padding:7px;"
@@ -82,7 +74,7 @@ class Ventana2(QMainWindow):
         self.boton.setFixedWidth(150)
         self.boton.setStyleSheet("QPushButton { border-image: url(Imagenes/Caramelo.png)}")
         self.boton.setCursor(Qt.PointingHandCursor)
-        self.boton.setGeometry(40, 220, 400, 400)
+        self.boton.setGeometry(70, 220, 400, 400)
         self.boton.clicked.connect(self.on_Button_Clicked)
 
         self.boton1 = QPushButton("", self)
@@ -93,18 +85,10 @@ class Ventana2(QMainWindow):
         self.boton1.setFixedWidth(150)
         self.boton1.setStyleSheet("QPushButton { border-image: url(Imagenes/Consultar.png)}")
         self.boton1.setCursor(Qt.PointingHandCursor)
-        self.boton1.setGeometry(230, 220, 400, 400)
+        self.boton1.setGeometry(390, 220, 400, 400)
         self.boton1.clicked.connect(self.on_Button_Clicked1)
 
-        self.boton3 = QPushButton("", self)
-        # self.boton.setStyleSheet("background-color: #2E86C1; color: #FFFFFF; padding:7px;"
-        # "border-radius:5px;")
-        self.boton3.setFont(self.font)
-        self.boton3.setFixedHeight(150)
-        self.boton3.setFixedWidth(150)
-        self.boton3.setStyleSheet("QPushButton { border-image: url(Imagenes/Caancelar.png)}")
-        self.boton3.setCursor(Qt.PointingHandCursor)
-        self.boton3.setGeometry(415, 220, 400, 400)
+
 
         self.boton4 = QPushButton("", self)
         # self.boton.setStyleSheet("background-color: #2E86C1; color: #FFFFFF; padding:7px;"
@@ -150,6 +134,10 @@ class Ventana2(QMainWindow):
     def on_Button_Clicked2(self):
         self.hide()
         self.ventanaAnterior.show()
+
+
+    def on_Button_Clicked3(self):
+        pass
 
 
     def initUI(self):

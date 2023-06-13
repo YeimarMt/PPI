@@ -1,4 +1,1 @@
-samuel,pelaez torres,22/06/2023,214124,Cejas,1033177728,3215645504,Barbero 2
-12341,124,20/06/2023,12412,Bases solas,1033177728,124124,Barbero 3
-1033177728,asfa,fafsa,21/06/2023,asfasf,Barba y corte,asfasf,Barbero 3
-
+1033177728,Samuel ,Pelaez Torres ,13/06/2023,12:00AM,Eliga su corte,3215181034,Eliga barbero

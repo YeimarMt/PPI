@@ -48,6 +48,8 @@ class Ventana4(QMainWindow):
         # Crear la tabla
         self.table = QTableWidget()
 
+
+
         # Leer los datos del archivo
         self.datos = self.leer_archivo('clientes.txt')
 
@@ -56,8 +58,11 @@ class Ventana4(QMainWindow):
         self.table.setColumnCount(8)  # Supongamos que tienes 8 columnas en tu archivo
 
         # Establecer encabezados de columna
-        self.encabezados = ['Documento', 'Nombre', 'Apellidos', 'Telefono', 'Fecha', 'Hora', 'Tipo de corte', 'Barbero']
+        self.encabezados = ['Documento', 'Nombre', 'Apellidos', 'Fecha', 'Hora', 'Tipo de corte', 'Telefono', 'Barbero']
         self.table.setHorizontalHeaderLabels(self.encabezados)
+
+        self.header = self.table.horizontalHeader()
+        self.header.setStyleSheet("QHeaderView::section { background-color: #A3D0D7; border: 1px solid #000000; }")
 
         # Llenar la tabla con los datos
         for i, fila in enumerate(self.datos):
@@ -65,6 +70,16 @@ class Ventana4(QMainWindow):
                 item = QTableWidgetItem(columna)
                 self.table.setItem(i, j, item)
 
+        # Establecer estilo para el borde de los datos
+        self.table.setStyleSheet("""
+            QTableWidget::item {
+                border: 1px solid #000000;
+            }
+            QTableWidget::item:selected {
+                color: #000000;
+                background-color: #A3D0D7;
+            }
+        """)
         # Ajustar el alto de las filas
         self.table.verticalHeader().setDefaultSectionSize(30)  # Alto de las filas
         self.table.horizontalHeader().setDefaultSectionSize(105)

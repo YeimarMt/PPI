@@ -1,10 +1,11 @@
 import sys
 
 from PyQt5 import QtCore
-from PyQt5.QtCore import Qt, QDate
+from PyQt5.QtCore import Qt, QDate, QTimer, QTime
 from PyQt5.QtGui import QIcon, QFont, QPixmap
 from PyQt5.QtWidgets import QDesktopWidget, QLabel, QApplication, QMainWindow, QHBoxLayout, QPushButton, QLineEdit, \
-    QFormLayout, QWidget, QVBoxLayout, QComboBox, QBoxLayout, QCalendarWidget, QProgressBar, QMessageBox
+    QFormLayout, QWidget, QVBoxLayout, QComboBox, QBoxLayout, QCalendarWidget, QProgressBar, QMessageBox, QTimeEdit, \
+    QGridLayout, QFrame
 
 from ventana4 import Ventana4
 
@@ -128,7 +129,7 @@ class Ventana3(QMainWindow):
         self.lista_desplegable.setStyleSheet("background-color: #A3D0D7 ; color: #000000; border-radius:7px;")
         self.font = QFont("Arial Rounded MT Bold", 9)
         self.lista_desplegable.setFont(self.font)
-        self.lista_desplegable.addItem("Eliga su corte")
+        self.lista_desplegable.addItem("")  # Agregar una opción en blanco
         self.lista_desplegable.addItem("Corte Completo")
         self.lista_desplegable.addItem("Solo barba")
         self.lista_desplegable.addItem("Bases solas")
@@ -136,6 +137,8 @@ class Ventana3(QMainWindow):
         self.lista_desplegable.addItem("Barba y corte")
         self.lista_desplegable.setFixedWidth(140)
         self.lista_desplegable.setFixedHeight(25)
+        self.lista_desplegable.model().item(0).setEnabled(False)  # Deshabilitar la primera opción
+
         # Agrega más opciones según sea necesario
 
         #self.lista_desplegable.setGeometry(100, 100, 200, 30)  # Establece la posición y el tamaño del widget
@@ -187,14 +190,16 @@ class Ventana3(QMainWindow):
         self.lista_desplegable1.setStyleSheet("background-color: #A3D0D7 ; color: #000000; border-radius:7px;")
         self.font = QFont("Arial Rounded MT Bold", 9)
         self.lista_desplegable1.setFont(self.font)
-        self.lista_desplegable1.addItem("Eliga barbero")
+        self.lista_desplegable1.addItem("")  # Agregar una opción en blanco
         self.lista_desplegable1.addItem("Barbero 1")
         self.lista_desplegable1.addItem("Barbero 2")
         self.lista_desplegable1.addItem("Barbero 3")
         self.lista_desplegable1.setFixedWidth(140)
         self.lista_desplegable1.setFixedHeight(25)
-        self.lista_desplegable1.currentIndexChanged.connect(self.manejar_seleccion)
+        self.lista_desplegable1.setCurrentIndex(0)  # Establecer el índice inicial en la opción en blanco
+        self.lista_desplegable1.model().item(0).setEnabled(False)  # Deshabilitar la primera opción
 
+        self.lista_desplegable1.currentIndexChanged.connect(self.manejar_seleccion)
 
         self.boton = QPushButton("Volver", self)
         self.boton.setStyleSheet("background-color: #A3D0D7; color: #000000; padding:7px;"
@@ -298,18 +303,17 @@ class Ventana3(QMainWindow):
         self.widget1 = QWidget()
         self.widget1.setLayout(self.form_layout)
 
-        self.calendar_widget = QCalendarWidget()  # Código del calendario
+        self.calendar_widget = QCalendarWidget()
         self.current_date = QDate.currentDate()
         self.calendar_widget.setMinimumDate(QDate(self.current_date.year(), 1, 1))
         self.calendar_widget.setMaximumDate(QDate(self.current_date.year(), 12, 31))
+        self.calendar_widget.setDateRange(self.current_date, QDate(self.current_date.year(), 12, 31))
         self.calendar_widget.setGridVisible(True)
-        self.calendar_widget.setFixedSize(315,270)
+        self.calendar_widget.setFixedSize(315, 270)
         self.calendar_widget.selectionChanged.connect(self.actualizar_fecha)
         self.font = QFont("Arial Rounded MT Bold", 9)
         self.calendar_widget.setFont(self.font)
         self.calendar_widget.setStyleSheet("Background-color:#FFFFFF; color:#000000;border: 1px solid #000000;")
-
-
 
         self.main_layout = QHBoxLayout()  # Cambiamos a QHBoxLayout para colocar el formulario y el calendario en una misma línea
 
@@ -324,6 +328,55 @@ class Ventana3(QMainWindow):
         # Establecemos el layout principal en la ventana
         self.setCentralWidget(self.widget_central)
 
+        #------------------------------------------------------------------
+
+        self.clock_label = QLabel()
+        self.clock_label.setStyleSheet("font-size: 20px")  # Aumentamos el tamaño de fuente para que sea visible
+
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.update_time)
+        self.timer.start(1000)
+
+        self.time_edit = QTimeEdit()
+        self.time_edit.setDisplayFormat("hh:mm:ss AP")
+        self.time_edit.setStyleSheet("QTimeEdit::up-button, QTimeEdit::down-button { font-size: 24px; }")
+        self.time_edit.setFixedSize(150, 30)  # Establecer tamaño fijo para time_edit (ancho: 100px, alto: 30px)
+
+        self.set_time_button = QPushButton("Establecer hora")
+        self.set_time_button.clicked.connect(self.set_selected_time)
+        self.set_time_button.setFixedSize(150,30)  # Establecer tamaño fijo para set_time_button (ancho: 100px, alto: 30px)
+
+        bottom_right_layout = QGridLayout()
+        bottom_right_layout.setSpacing(10)  # Ajustar el espaciado vertical entre filas a 10 píxeles
+        bottom_right_layout.setAlignment(Qt.AlignTop)  # Alinear los elementos hacia la parte superior
+        bottom_right_layout.addWidget(self.time_edit, 0, 0,
+                                      alignment=Qt.AlignRight)  # Fila 0, Columna 0, alineación derecha
+        bottom_right_layout.addWidget(self.set_time_button, 1, 0,
+                                      alignment=Qt.AlignRight)  # Fila 1, Columna 0, alineación derecha
+        bottom_right_layout.addWidget(self.clock_label, 2, 0,
+                                      alignment=Qt.AlignRight)  # Fila 2, Columna 0, alineación derecha
+
+        self.main_layout = QVBoxLayout()
+
+        top_layout = QHBoxLayout()
+        top_layout.addWidget(self.widget1)
+        top_layout.addWidget(self.calendar_widget)
+
+        self.main_layout.addLayout(top_layout)
+        self.main_layout.addLayout(bottom_right_layout)
+
+        self.widget_central = QWidget()
+        self.widget_central.setLayout(self.main_layout)
+
+
+        self.setCentralWidget(self.widget_central)
+
+    def update_time(self):
+        current_time = QTime.currentTime()
+        self.clock_label.setText(current_time.toString("hh:mm:ss AP"))  # Cambiar el formato a 12 horas con AM/PM
+
+    def set_selected_time(self):
+        pass
 
     def actualizar_fecha(self):
         # Obtiene la fecha seleccionada y la muestra en el QLabel
@@ -375,7 +428,6 @@ class Ventana3(QMainWindow):
 
             # Mostrar mensaje de datos guardados exitosamente
             QMessageBox.information(self, "Datos Guardados", "Los datos han sido guardados correctamente.")
-
 
 
     def on_Button_Clicked_limpiar(self):
