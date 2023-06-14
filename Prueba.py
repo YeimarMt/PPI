@@ -138,8 +138,3 @@ class Ventana5(QMainWindow):
         self.ventana_anterior.show()  # Mostrar la ventana anterior
         self.close()  # Cerrar la ventana actual
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ventana4 = Ventana4()
-    ventana4.show()
-    sys.exit(app.exec_())

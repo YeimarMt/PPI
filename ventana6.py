@@ -1,9 +1,10 @@
 import sys
+from datetime import datetime
 from PyQt5.QtGui import QIcon, QFont, QPixmap
 from PyQt5.QtWidgets import QDesktopWidget, QLabel, QApplication, QMainWindow, QTableWidgetItem, QTableWidget, \
     QFormLayout, QWidget, QVBoxLayout, QHeaderView, QPushButton
 from PyQt5.QtCore import Qt
-from datetime import datetime
+
 
 
 class Ventana6(QMainWindow):
@@ -78,7 +79,15 @@ class Ventana6(QMainWindow):
         self.header.setStyleSheet("QHeaderView::section { background-color: #A3D0D7; border: 1px solid #000000; }")
 
         # Llenar la tabla con los datos
-        sorted_datos = sorted(self.datos, key=lambda x: datetime.strptime(x[3], '%d/%m/%Y'))
+        # Obtener la columna de fechas
+        fechas = [datetime.strptime(fila[3], '%d/%m/%Y') for fila in self.datos]
+
+        # Ordenar los datos en función de las fechas de forma ascendente
+        sorted_datos = sorted(self.datos, key=lambda fila: datetime.strptime(fila[3], '%d/%m/%Y'))
+
+        # Configurar la tabla
+        self.table.setRowCount(len(sorted_datos))
+
         for i, fila in enumerate(sorted_datos):
             for j, columna in enumerate(fila):
                 item = QTableWidgetItem(columna)

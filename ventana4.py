@@ -36,7 +36,7 @@ class Ventana4(QMainWindow):
         self.titulo1.setGeometry(205, 180, 400, 400)
         self.titulo1.setFixedWidth(200)
         self.titulo1.setFixedHeight(25)
-        self.titulo1.setStyleSheet("color: #000000;")
+        self.titulo1.setStyleSheet("color: #000000; border: 1px solid black; border-radius: 10px;")
         self.font = QFont("Arial Rounded MT Bold", 14)
         self.titulo1.setFont(self.font)
 
@@ -46,7 +46,7 @@ class Ventana4(QMainWindow):
         self.titulo.setGeometry(50, 400, 20, 20)
         self.titulo.setFixedWidth(200)
         self.titulo.setFixedHeight(25)
-        self.titulo.setStyleSheet("color: #000000;")
+        self.titulo.setStyleSheet("color: #000000; border: 1px solid black; border-radius: 10px;")
         self.font = QFont("Arial Rounded MT Bold", 14)
         self.titulo.setFont(self.font)
 
@@ -55,7 +55,7 @@ class Ventana4(QMainWindow):
         self.titulo1.setGeometry(365, 400, 400, 400)
         self.titulo1.setFixedWidth(200)
         self.titulo1.setFixedHeight(25)
-        self.titulo1.setStyleSheet("color: #000000;")
+        self.titulo1.setStyleSheet("color: #000000; border: 1px solid black; border-radius: 10px;")
         self.font = QFont("Arial Rounded MT Bold", 14)
         self.titulo1.setFont(self.font)
 

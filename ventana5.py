@@ -5,7 +5,6 @@ from PyQt5.QtWidgets import QDesktopWidget, QLabel, QApplication, QMainWindow, Q
 from PyQt5.QtCore import Qt
 from datetime import datetime
 
-
 class Ventana5(QMainWindow):
     def __init__(self, ventana_anterior):
         super().__init__()
@@ -61,8 +60,6 @@ class Ventana5(QMainWindow):
         # Crear la tabla
         self.table = QTableWidget()
 
-
-
         # Leer los datos del archivo
         self.datos = self.leer_archivo('clientes.txt')
 
@@ -77,8 +74,14 @@ class Ventana5(QMainWindow):
         self.header = self.table.horizontalHeader()
         self.header.setStyleSheet("QHeaderView::section { background-color: #A3D0D7; border: 1px solid #000000; }")
 
-        # Llenar la tabla con los datos
-        sorted_datos = sorted(self.datos, key=lambda x: datetime.strptime(x[3], '%d/%m/%Y'))
+        fechas = [datetime.strptime(fila[3], '%d/%m/%Y') for fila in self.datos]
+
+        # Ordenar los datos en función de las fechas de forma ascendente
+        sorted_datos = sorted(self.datos, key=lambda fila: datetime.strptime(fila[3], '%d/%m/%Y'))
+
+        # Configurar la tabla
+        self.table.setRowCount(len(sorted_datos))
+
         for i, fila in enumerate(sorted_datos):
             for j, columna in enumerate(fila):
                 item = QTableWidgetItem(columna)
@@ -138,8 +141,9 @@ class Ventana5(QMainWindow):
         self.ventana_anterior.show()  # Mostrar la ventana anterior
         self.close()  # Cerrar la ventana actual
 
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ventana5 = Ventana5()
+    ventana5 = Ventana5(None)
     ventana5.show()
     sys.exit(app.exec_())

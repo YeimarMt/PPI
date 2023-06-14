@@ -47,11 +47,6 @@ class Ventana3(QMainWindow):
         self.font = QFont("Arial Rounded MT Bold", 16)
         self.titulo1.setFont(self.font)
 
-        self.campo_texto = QLabel(self)
-        self.campo_texto.setText("Correo:")
-        self.campo_texto.setStyleSheet("color: #000000;")
-        self.font = QFont("Arial Rounded MT Bold", 10)
-        self.campo_texto.setFont(self.font)
 
         # Creamos un objeto QLabel para el campo de texto
         self.campo_texto = QLabel(self)
@@ -141,10 +136,6 @@ class Ventana3(QMainWindow):
         self.lista_desplegable.setFixedHeight(25)
         self.lista_desplegable.model().item(0).setEnabled(False)  # Deshabilitar la primera opción
 
-        # Agrega más opciones según sea necesario
-
-        #self.lista_desplegable.setGeometry(100, 100, 200, 30)  # Establece la posición y el tamaño del widget
-
         # Conecta una función para manejar el evento de selección de la lista desplegable
         self.lista_desplegable.currentIndexChanged.connect(self.manejar_seleccion)
 
@@ -179,7 +170,7 @@ class Ventana3(QMainWindow):
 
         # Creamos un objeto QLineEdit para el campo de texto
         self.line_edit7 = QLineEdit(self)
-        self.line_edit7.setPlaceholderText("##########")
+        self.line_edit7.setPlaceholderText("Ingresa telefono")
         self.line_edit7.setStyleSheet("background-color: #A3D0D7 ; color: #000000; border-radius:7px;")
         self.font = QFont("Arial Rounded MT Bold", 9)
         self.line_edit7.setFont(self.font)
@@ -424,10 +415,25 @@ class Ventana3(QMainWindow):
         self.texto7 = self.line_edit7.text()
         self.texto8 = self.lista_desplegable1.currentText()
 
-        # Verifica si los campos están vacíos
+        fecha_repetida = False
+        fecha_actual = self.line_edit3.text()
+
+        with open("clientes.txt", "r") as archivo:
+            lineas = archivo.readlines()
+            contador = 0
+            for linea in lineas:
+                if fecha_actual in linea:
+                    contador += 1
+                    if contador >= 2:
+                        fecha_repetida = True
+                        break
+
         if self.texto1 == "" or self.texto2 == "" or self.texto3 == "" or self.texto4 == "" or self.texto5 == "" or self.texto6 == "" or self.texto7 == "" or self.texto8 == "":
             # Mostrar mensaje de campos vacíos
             QMessageBox.warning(self, "Campos Vacíos", "Por favor, complete todos los campos.")
+        elif fecha_repetida:
+            QMessageBox.warning(self, "Fecha Repetida", "La fecha ya ha sido agregada dos veces.")
+
         else:
             # Guarda los datos en un archivo de texto
             with open("clientes.txt", "a") as archivo:
@@ -463,6 +469,7 @@ class Ventana3(QMainWindow):
         self.line_edit6.clear()
         self.line_edit7.clear()
         self.lista_desplegable.setCurrentIndex(0)
+        self.lista_desplegable1.setCurrentIndex(0)
 
 
 
