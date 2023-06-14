@@ -2,7 +2,7 @@ import sys
 
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt, QDate, QTimer, QTime
-from PyQt5.QtGui import QIcon, QFont, QPixmap
+from PyQt5.QtGui import QIcon, QFont, QPixmap, QIntValidator
 from PyQt5.QtWidgets import QDesktopWidget, QLabel, QApplication, QMainWindow, QHBoxLayout, QPushButton, QLineEdit, \
     QFormLayout, QWidget, QVBoxLayout, QComboBox, QBoxLayout, QCalendarWidget, QProgressBar, QMessageBox, QTimeEdit, \
     QGridLayout, QFrame
@@ -68,6 +68,7 @@ class Ventana3(QMainWindow):
         self.line_edit.setFont(self.font)
         self.line_edit.setFixedWidth(200)
         self.line_edit.setFixedHeight(25)
+
 
         # Creamos un objeto QLabel para el campo de texto
         self.campo_texto2 = QLabel(self)
@@ -163,6 +164,11 @@ class Ventana3(QMainWindow):
         self.line_edit6.setFont(self.font)
         self.line_edit6.setFixedWidth(200)
         self.line_edit6.setFixedHeight(25)
+        # Crear un validador de números enteros
+        validator = QIntValidator(self)
+        # Establecer el validador en el campo de entrada
+        self.line_edit6.setValidator(validator)
+
 
         # Creamos un objeto QLabel para el campo de texto
         self.campo_texto6 = QLabel(self)
