@@ -13,7 +13,7 @@ class Ventana5(QMainWindow):
         self.initUI()
 
     def initUI(self):
-        self.setWindowTitle('CONSULTA')
+        self.setWindowTitle('CITAS BARBERO 1')
         self.setWindowIcon(QIcon('Imagenes/logo1.png'))
 
         self.ancho = 900
@@ -35,7 +35,7 @@ class Ventana5(QMainWindow):
             QPixmap('imagenes/logo1.png'))  # Reemplaza 'ruta/a/la/imagen.png' con la ruta correcta de la imagen
         imagen_label.setAlignment(Qt.AlignCenter)
 
-        self.titulo_label = QLabel('Consulta', self)
+        self.titulo_label = QLabel('CONSULTA', self)
         self.titulo_label.setStyleSheet("color: #000000;")
         self.font = QFont("Arial Rounded MT Bold", 14)
         self.titulo_label.setFont(self.font)
@@ -140,6 +140,6 @@ class Ventana5(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ventana4 = Ventana4()
-    ventana4.show()
+    ventana5 = Ventana5()
+    ventana5.show()
     sys.exit(app.exec_())

@@ -3,3 +3,4 @@
 1076818700,yeimar alejandro,lozano valencia,14/06/2023,02:30:00 P. M.,Bases solas,3209876545,Barbero 1
 1033177728,Juan David ,Velasquez,13/06/2023,01:30:00 P. M.,Corte Completo,312312432,Barbero 1
 24255252,simon,perez,22/06/2023,02:00:00 P. M.,Bases solas,3828287,Barbero 1
+100290414,Sara,Pelaez,16/06/2023,04:00:00 P. M.,Corte Completo,3045714394,Barbero 1

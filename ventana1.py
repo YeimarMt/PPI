@@ -16,12 +16,6 @@ class Ventana1(QMainWindow):
         self.initUI()
 
 
-
-
-        #palette = self.palette()
-        #palette.setColor(QPalette.Window, QColor(100, 30, 20))
-        #self.setPalette(palette)
-
         self.setWindowTitle("¡BIENVENIDO!")
 
         self.ancho = 500

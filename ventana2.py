@@ -136,10 +136,6 @@ class Ventana2(QMainWindow):
         self.ventanaAnterior.show()
 
 
-    def on_Button_Clicked3(self):
-        pass
-
-
     def initUI(self):
         self.setWindowTitle('Ventana2')
         self.setWindowIcon(QIcon('Imagenes/logo1.png'))
