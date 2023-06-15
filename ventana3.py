@@ -471,7 +471,14 @@ class Ventana3(QMainWindow):
 
     def update_time(self):
         current_time = QTime.currentTime()
-        self.clock_label.setText(current_time.toString("hh:mm:ss AP"))  # Cambiar el formato a 12 horas con AM/PM
+
+        start_time = QTime(6, 0, 0)  # Hora de inicio: 08:00:00 A.M.
+        end_time = QTime(22, 0, 0)  # Hora de finalización: 10:00:00 P.M.
+
+        if current_time >= start_time and current_time <= end_time:
+            self.clock_label.setText(current_time.toString("hh:mm:ss AP"))
+        else:
+            self.clock_label.setText("Fuera de horario")
 
     def set_selected_time(self):
         text = self.time_edit.text()  # Obtener el contenido del QLabel "time_edit"
