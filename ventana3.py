@@ -21,8 +21,8 @@ class Ventana3(QMainWindow):
         self.ventanaAnterior = anterior
         self.setWindowTitle("AGENDAR")
 
-        self.ancho = 800
-        self.alto = 600
+        self.ancho = 750
+        self.alto = 660
         self.resize(self.ancho, self.alto)
 
         self.pantalla = self.frameGeometry()
@@ -251,6 +251,71 @@ class Ventana3(QMainWindow):
         self.boton2.clicked.connect(self.on_Button_Clicked_limpiar)
 
 
+        self.boton3 = QPushButton("Editar", self)
+        self.boton3.setStyleSheet("background-color: #A3D0D7; color: #000000; padding:7px;"
+                                  "border-radius:5px;")
+        self.font = QFont("Arial Rounded MT Bold", 10)
+        self.boton3.setFont(self.font)
+        self.boton3.setFixedHeight(30)
+        self.boton3.setFixedWidth(70)
+        self.boton3.setCursor(Qt.PointingHandCursor)
+        self.boton3.enterEvent = lambda event: self.boton3.setStyleSheet(
+            "background-color: #A3D0D7; color: #000000; padding:7px;"
+            "border-radius:5px;")
+        self.boton3.leaveEvent = lambda event: self.boton3.setStyleSheet(
+            "background-color: #A3D0D7; color: #000000; padding:7px;"
+            "border-radius:5px;")
+        self.boton3.clicked.connect(self.on_Button_Clicked_editar)
+
+        self.boton4 = QPushButton("Eliminar", self)
+        self.boton4.setStyleSheet("background-color: #A3D0D7; color: #000000; padding:7px;"
+                                  "border-radius:5px;")
+        self.font = QFont("Arial Rounded MT Bold", 10)
+        self.boton4.setFont(self.font)
+        self.boton4.setFixedHeight(30)
+        self.boton4.setFixedWidth(80)
+        self.boton4.setCursor(Qt.PointingHandCursor)
+        self.boton4.enterEvent = lambda event: self.boton4.setStyleSheet(
+            "background-color: #A3D0D7; color: #000000; padding:7px;"
+            "border-radius:5px;")
+        self.boton4.leaveEvent = lambda event: self.boton4.setStyleSheet(
+            "background-color: #A3D0D7; color: #000000; padding:7px;"
+            "border-radius:5px;")
+        self.boton4.clicked.connect(self.on_Button_Clicked_eliminar)
+
+        self.boton5 = QPushButton("Actualizar", self)
+        self.boton5.setStyleSheet("background-color: #A3D0D7; color: #000000; padding:7px;"
+                                  "border-radius:5px;")
+        self.font = QFont("Arial Rounded MT Bold", 10)
+        self.boton5.setFont(self.font)
+        self.boton5.setFixedHeight(30)
+        self.boton5.setFixedWidth(85)
+        self.boton5.setCursor(Qt.PointingHandCursor)
+        self.boton5.enterEvent = lambda event: self.boton5.setStyleSheet(
+            "background-color: #A3D0D7; color: #000000; padding:7px;"
+            "border-radius:5px;")
+        self.boton5.leaveEvent = lambda event: self.boton5.setStyleSheet(
+            "background-color: #A3D0D7; color: #000000; padding:7px;"
+            "border-radius:5px;")
+        self.boton5.clicked.connect(self.on_Button_Clicked_actualizar)
+
+        self.boton6 = QPushButton("Buscar", self)
+        self.boton6.setStyleSheet("background-color: #A3D0D7; color: #000000; padding:7px;"
+                                  "border-radius:5px;")
+        self.font = QFont("Arial Rounded MT Bold", 10)
+        self.boton6.setFont(self.font)
+        self.boton6.setFixedHeight(30)
+        self.boton6.setFixedWidth(75)
+        self.boton6.setCursor(Qt.PointingHandCursor)
+        self.boton6.enterEvent = lambda event: self.boton6.setStyleSheet(
+            "background-color: #A3D0D7; color: #000000; padding:7px;"
+            "border-radius:5px;")
+        self.boton6.leaveEvent = lambda event: self.boton6.setStyleSheet(
+            "background-color: #A3D0D7; color: #000000; padding:7px;"
+            "border-radius:5px;")
+        self.boton6.clicked.connect(self.on_Button_Clicked_buscar)
+
+
 
         self.label = QLabel(self)
         self.pixmap = QPixmap("Imagenes/logo1.png")  # Reemplaza con la ruta de tu imagen
@@ -265,6 +330,18 @@ class Ventana3(QMainWindow):
         self.hbox.addWidget(self.boton1)
         self.hbox.addSpacing(10)  # Agregar espacio de 10 píxeles entre los botones
         self.hbox.addWidget(self.boton2)
+        self.hbox.addSpacing(10)
+
+        self.hbox1 = QHBoxLayout()
+        self.hbox1.addWidget(self.boton3)
+        self.hbox1.addSpacing(10)  # Agregar espacio de 10 píxeles entre los botones
+        self.hbox1.addWidget(self.boton4)
+        self.hbox1.addSpacing(10)  # Agregar espacio de 10 píxeles entre los botones
+        self.hbox1.addWidget(self.boton5)
+        self.hbox1.addSpacing(10)  # Agregar espacio de 10 píxeles entre los botones
+        self.hbox1.addWidget(self.boton6)
+
+
 
         self.form_layout = QFormLayout()
         self.form_layout.setVerticalSpacing(10)  # Establecer espaciado vertical de 10 píxeles
@@ -299,6 +376,14 @@ class Ventana3(QMainWindow):
         self.espacioBlanco = QLabel("")
 
         self.form_layout.addRow(self.hbox)
+        self.form_layout.addRow(self.hbox1)
+
+
+        #self.form_layout.addRow(self.boton3, self.boton4)
+
+        #self.form_layout.addRow(self.boton5)
+
+
 
         self.widget1 = QWidget()
         self.widget1.setLayout(self.form_layout)
@@ -328,7 +413,8 @@ class Ventana3(QMainWindow):
         # Establecemos el layout principal en la ventana
         self.setCentralWidget(self.widget_central)
 
-        #------------------------------------------------------------------
+        #------------------------------------------------------------------------------------------
+        #------------------------------------------------------------------------------------------
 
         self.clock_label = QLabel()
         self.clock_label.setStyleSheet("font-size: 20px")  # Aumentamos el tamaño de fuente para que sea visible
@@ -462,8 +548,6 @@ class Ventana3(QMainWindow):
             # Mostrar mensaje de datos guardados exitosamente
             QMessageBox.information(self, "Datos Guardados", "Los datos han sido guardados correctamente.")
 
-
-
     def on_Button_Clicked_limpiar(self): # Comprobar el valor del barbero
         self.line_edit.clear()
         self.line_edit2.clear()
@@ -474,7 +558,14 @@ class Ventana3(QMainWindow):
         self.lista_desplegable.setCurrentIndex(0)
         self.lista_desplegable1.setCurrentIndex(0)
 
-
+    def on_Button_Clicked_editar(self):
+        pass
+    def on_Button_Clicked_eliminar(self):
+        pass
+    def on_Button_Clicked_actualizar(self):
+        pass
+    def on_Button_Clicked_buscar(self):
+        pass
 
     def initUI(self):
         self.setWindowTitle('Ventana3')
