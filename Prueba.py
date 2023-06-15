@@ -1,138 +1,92 @@
 import sys
-from PyQt5.QtGui import QIcon, QFont, QPixmap
-from PyQt5.QtWidgets import QDesktopWidget, QLabel, QApplication, QMainWindow, QTableWidgetItem, QTableWidget, \
-    QFormLayout, QWidget, QVBoxLayout, QHeaderView, QPushButton
-from PyQt5.QtCore import Qt
-from datetime import datetime
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QComboBox
 
-
-class Ventana5(QMainWindow):
-    def __init__(self, ventana_anterior):
+class MainWindow(QMainWindow):
+    def __init__(self):
         super().__init__()
-        self.ventana_anterior = ventana_anterior
+        self.setWindowTitle("Búsqueda de Clientes")
+        self.setGeometry(200, 200, 300, 200)
 
-        self.setWindowTitle('CONSULTA')
-        self.setWindowIcon(QIcon('Imagenes/logo1.png'))
+        layout = QVBoxLayout()
+        self.documento_label = QLabel("Documento:")
+        self.documento_input = QLineEdit()
+        self.buscar_button = QPushButton("Buscar")
+        self.buscar_button.clicked.connect(self.on_Button_Clicked_buscar)
 
-        self.ancho = 900
-        self.alto = 600
-        self.resize(self.ancho, self.alto)
+        self.nombre_label = QLabel("Nombre:")
+        self.nombre_input = QLineEdit()
+        self.apellido_label = QLabel("Apellido:")
+        self.apellido_input = QLineEdit()
+        self.direccion_label = QLabel("Dirección:")
+        self.direccion_input = QLineEdit()
+        self.campo4_label = QLabel("Campo 4:")
+        self.campo4_input = QLineEdit()
+        self.campo5_label = QLabel("Campo 5:")
+        self.campo5_input = QLineEdit()
+        self.campo6_label = QLabel("Campo 6:")
+        self.campo6_combobox = QComboBox()
+        self.campo7_label = QLabel("Campo 7:")
+        self.campo7_combobox = QComboBox()
 
-        self.pantalla = self.frameGeometry()
-        self.centro = QDesktopWidget().availableGeometry().center()
-        self.pantalla.moveCenter(self.centro)
-        self.move(self.pantalla.topLeft())
+        layout.addWidget(self.documento_label)
+        layout.addWidget(self.documento_input)
+        layout.addWidget(self.buscar_button)
+        layout.addWidget(self.nombre_label)
+        layout.addWidget(self.nombre_input)
+        layout.addWidget(self.apellido_label)
+        layout.addWidget(self.apellido_input)
+        layout.addWidget(self.direccion_label)
+        layout.addWidget(self.direccion_input)
+        layout.addWidget(self.campo4_label)
+        layout.addWidget(self.campo4_input)
+        layout.addWidget(self.campo5_label)
+        layout.addWidget(self.campo5_input)
+        layout.addWidget(self.campo6_label)
+        layout.addWidget(self.campo6_combobox)
+        layout.addWidget(self.campo7_label)
+        layout.addWidget(self.campo7_combobox)
 
-        self.setFixedWidth(self.ancho)
-        self.setFixedHeight(self.alto)
+        widget = QWidget()
+        widget.setLayout(layout)
+        self.setCentralWidget(widget)
 
-        self.setStyleSheet("background-color: #DBEBF6; ")
+        # Agregar opciones a las listas desplegables
+        self.campo6_combobox.addItems(["Opción 1", "Opción 2", "Opción 3"])
+        self.campo7_combobox.addItems(["Opción A", "Opción B", "Opción C"])
 
-        imagen_label = QLabel(self)
-        imagen_label.setPixmap(
-            QPixmap('imagenes/logo1.png'))  # Reemplaza 'ruta/a/la/imagen.png' con la ruta correcta de la imagen
-        imagen_label.setAlignment(Qt.AlignCenter)
+    def on_Button_Clicked_buscar(self):
+        documento = self.documento_input.text()
 
-        self.titulo_label = QLabel('Consulta', self)
-        self.titulo_label.setStyleSheet("color: #000000;")
-        self.font = QFont("Arial Rounded MT Bold", 14)
-        self.titulo_label.setFont(self.font)
-        self.titulo_label.setAlignment(Qt.AlignCenter)
+        # Realizar la búsqueda en el archivo plano
+        with open("clientes.txt", "r") as file:
+            for line in file:
+                data = line.strip().split(",")
+                if data[0] == documento:
+                    # Si se encuentra el documento, rellenar el formulario
+                    self.nombre_input.setText(data[1])
+                    self.apellido_input.setText(data[2])
+                    self.direccion_input.setText(data[3])
+                    self.campo4_input.setText(data[4])
+                    self.campo5_input.setText(data[5])
+                    self.campo6_combobox.setCurrentText(data[6])
+                    self.campo7_combobox.setCurrentText(data[7])
+                    break  # Terminar el bucle después de encontrar el documento
 
-
-        self.boton = QPushButton("Volver", self)
-        self.boton.setStyleSheet("background-color: #A3D0D7; color: #000000; padding:7px;"
-                                 "border-radius:5px;")
-        self.font = QFont("Arial Rounded MT Bold", 10)
-        self.boton.setFont(self.font)
-        self.boton.setFixedHeight(40)
-        self.boton.setFixedWidth(100)
-        self.boton.setCursor(Qt.PointingHandCursor)
-        self.boton.enterEvent = lambda event: self.boton.setStyleSheet(
-            "background-color: #A3D0D7; color: #000000; padding:7px;"
-            "border-radius:5px;")
-        self.boton.leaveEvent = lambda event: self.boton.setStyleSheet(
-            "background-color: #A3D0D7; color: #000000; padding:7px;"
-            "border-radius:5px;")
-        self.boton.clicked.connect(self.on_Button_Clicked_volver)
-
-        # Crear la tabla
-        self.table = QTableWidget()
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
+    sys.exit(app.exec_())
 
 
 
-        # Leer los datos del archivo
-        self.datos = self.leer_archivo('clientes.txt')
 
-        # Configurar la tabla
-        self.table.setRowCount(len(self.datos))
-        self.table.setColumnCount(8)  # Supongamos que tienes 8 columnas en tu archivo
 
-        # Establecer encabezados de columna
-        self.encabezados = ['Documento', 'Nombre', 'Apellidos', 'Fecha', 'Hora', 'Tipo de corte', 'Telefono', 'Barbero']
-        self.table.setHorizontalHeaderLabels(self.encabezados)
-
-        self.header = self.table.horizontalHeader()
-        self.header.setStyleSheet("QHeaderView::section { background-color: #A3D0D7; border: 1px solid #000000; }")
-
-        # Llenar la tabla con los datos
-        sorted_datos = sorted(self.datos, key=lambda x: datetime.strptime(x[3], '%d/%m/%Y'))
-        for i, fila in enumerate(sorted_datos):
-            for j, columna in enumerate(fila):
-                item = QTableWidgetItem(columna)
-                self.table.setItem(i, j, item)
-
-        # Establecer estilo para el borde de los datos
-        self.table.setStyleSheet("""
-            QTableWidget::item {
-                border: 1px solid #000000;
-            }
-            QTableWidget::item:selected {
-                color: #000000;
-                background-color: #A3D0D7;
-            }
-        """)
-        # Ajustar el alto de las filas
-        self.table.verticalHeader().setDefaultSectionSize(30)  # Alto de las filas
-        self.table.horizontalHeader().setDefaultSectionSize(105)
-
-        self.table.resize(600, 100)
-
-        # Permitir que la tabla se ajuste al tamaño de la ventana
-        self.table.setSizeAdjustPolicy(QTableWidget.AdjustToContents)
-
-        # Crear un layout vertical y agregar la tabla y el botón
-        # Crear un layout vertical y agregar la tabla
-        self.layout = QVBoxLayout()
-        self.layout.addWidget(imagen_label)
-        self.layout.addWidget(self.titulo_label)
-        self.layout.addWidget(self.table)
-
-        # Crear un layout vertical para el botón
-        self.boton_layout = QVBoxLayout()
-
-        self.boton_layout.addWidget(self.boton)
-        self.boton_layout.setAlignment(Qt.AlignCenter)
-
-        # Agregar el layout del botón al layout principal
-        self.layout.addLayout(self.boton_layout)
-
-        # Crear un widget central y establecer el layout
-        self.central_widget = QWidget()
-        self.central_widget.setLayout(self.layout)
-
-        # Establecer el widget central en la ventana
-        self.setCentralWidget(self.central_widget)
-
-        self.central_widget.setStyleSheet("border: none;")
-
-    def leer_archivo(self, archivo):
-        # Leer el archivo y devolver los datos como una lista de filas
-        with open(archivo, 'r') as file:
-            self.datos = [linea.strip().split(',') for linea in file]
-        return self.datos
-
-    def on_Button_Clicked_volver(self):
-        self.ventana_anterior.show()  # Mostrar la ventana anterior
-        self.close()  # Cerrar la ventana actual
-
+    #self.line_edit.text()
+    #self.line_edit2.text()
+    #self.line_edit3.text()
+    #self.line_edit4.text()
+    #self.lista_desplegable.currentText()
+    #self.line_edit6.text()
+    #self.line_edit7.text()
+    #self.lista_desplegable1.currentText()

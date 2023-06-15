@@ -556,7 +556,32 @@ class Ventana3(QMainWindow):
     def on_Button_Clicked_actualizar(self):
         pass
     def on_Button_Clicked_buscar(self):
-        pass
+        documento = self.line_edit6.text()
+
+        # Realizar la búsqueda en el archivo plano
+        encontrado = False
+
+        with open("clientes.txt", "r") as file:
+            for line in file:
+                data = line.strip().split(",")
+                if data[0] == documento:
+                    # Si se encuentra el documento, rellenar el formulario
+                    self.line_edit.setText(data[1])
+                    self.line_edit2.setText(data[2])
+                    self.line_edit3.setText(data[3])
+                    self.line_edit4.setText(data[4])
+                    self.lista_desplegable.setCurrentText(data[5])
+                    self.line_edit7.setText(data[6])
+                    self.lista_desplegable1.setCurrentText(data[7])
+                    encontrado = True
+                    break  # Terminar el bucle después de encontrar el documento
+
+        self.line_edit6.clear()
+
+        if not encontrado:
+            QMessageBox.warning(self, "Error",
+                                "El documento no encontrado"
+                                "\nEl documento no existe.")
 
     def initUI(self):
         self.setWindowTitle('Ventana3')
