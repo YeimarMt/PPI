@@ -316,7 +316,6 @@ class Ventana3(QMainWindow):
         self.boton6.clicked.connect(self.on_Button_Clicked_buscar)
 
 
-
         self.label = QLabel(self)
         self.pixmap = QPixmap("Imagenes/logo1.png")  # Reemplaza con la ruta de tu imagen
         self.label.setPixmap(self.pixmap)
@@ -340,7 +339,6 @@ class Ventana3(QMainWindow):
         self.hbox1.addWidget(self.boton5)
         self.hbox1.addSpacing(10)  # Agregar espacio de 10 píxeles entre los botones
         self.hbox1.addWidget(self.boton6)
-
 
 
         self.form_layout = QFormLayout()
@@ -377,11 +375,6 @@ class Ventana3(QMainWindow):
 
         self.form_layout.addRow(self.hbox)
         self.form_layout.addRow(self.hbox1)
-
-
-        #self.form_layout.addRow(self.boton3, self.boton4)
-
-        #self.form_layout.addRow(self.boton5)
 
 
 
@@ -446,8 +439,6 @@ class Ventana3(QMainWindow):
         self.set_time_button.leaveEvent = lambda event: self.boton.setStyleSheet(
             "background-color: #A3D0D7; color: #000000; padding:7px;"
             "border-radius:5px;")
-
-
 
 
         bottom_right_layout = QGridLayout()
