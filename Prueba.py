@@ -1,82 +1,66 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QComboBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QVBoxLayout, QWidget
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Búsqueda de Clientes")
-        self.setGeometry(200, 200, 300, 200)
+        self.setWindowTitle("Eliminar línea de datos")
+        self.setGeometry(100, 100, 300, 200)
 
+        # Crear una etiqueta y un botón
+        self.label = QLabel("Presiona el botón 'Eliminar' para borrar la línea de datos.")
+        self.button = QPushButton("Eliminar")
+        self.button.clicked.connect(self.on_Button_Clicked_eliminar)
+
+        # Crear un diseño vertical y agregar los widgets
         layout = QVBoxLayout()
-        self.documento_label = QLabel("Documento:")
-        self.documento_input = QLineEdit()
-        self.buscar_button = QPushButton("Buscar")
-        self.buscar_button.clicked.connect(self.on_Button_Clicked_buscar)
+        layout.addWidget(self.label)
+        layout.addWidget(self.button)
 
-        self.nombre_label = QLabel("Nombre:")
-        self.nombre_input = QLineEdit()
-        self.apellido_label = QLabel("Apellido:")
-        self.apellido_input = QLineEdit()
-        self.direccion_label = QLabel("Dirección:")
-        self.direccion_input = QLineEdit()
-        self.campo4_label = QLabel("Campo 4:")
-        self.campo4_input = QLineEdit()
-        self.campo5_label = QLabel("Campo 5:")
-        self.campo5_input = QLineEdit()
-        self.campo6_label = QLabel("Campo 6:")
-        self.campo6_combobox = QComboBox()
-        self.campo7_label = QLabel("Campo 7:")
-        self.campo7_combobox = QComboBox()
+        # Crear un widget central y establecer el diseño
+        central_widget = QWidget()
+        central_widget.setLayout(layout)
+        self.setCentralWidget(central_widget)
 
-        layout.addWidget(self.documento_label)
-        layout.addWidget(self.documento_input)
-        layout.addWidget(self.buscar_button)
-        layout.addWidget(self.nombre_label)
-        layout.addWidget(self.nombre_input)
-        layout.addWidget(self.apellido_label)
-        layout.addWidget(self.apellido_input)
-        layout.addWidget(self.direccion_label)
-        layout.addWidget(self.direccion_input)
-        layout.addWidget(self.campo4_label)
-        layout.addWidget(self.campo4_input)
-        layout.addWidget(self.campo5_label)
-        layout.addWidget(self.campo5_input)
-        layout.addWidget(self.campo6_label)
-        layout.addWidget(self.campo6_combobox)
-        layout.addWidget(self.campo7_label)
-        layout.addWidget(self.campo7_combobox)
+    def on_Button_Clicked_eliminar(self):
+        # Archivo de datos
+        archivo = "clientes.txt"
 
-        widget = QWidget()
-        widget.setLayout(layout)
-        self.setCentralWidget(widget)
+        # Datos a buscar y eliminar
+        datos_a_eliminar = [
+            self.line_edit.text(),
+            self.line_edit2.text(),
+            self.line_edit3.text(),
+            self.line_edit4.text(),
+            self.lista_desplegable.currentText(),
+            self.line_edit6.text(),
+            self.line_edit7.text(),
+            self.lista_desplegable1.currentText()
+        ]
 
-        # Agregar opciones a las listas desplegables
-        self.campo6_combobox.addItems(["Opción 1", "Opción 2", "Opción 3"])
-        self.campo7_combobox.addItems(["Opción A", "Opción B", "Opción C"])
+        # Leer el archivo y guardar las líneas en una lista
+        with open(archivo, "r") as file:
+            lineas = file.readlines()
 
-    def on_Button_Clicked_buscar(self):
-        documento = self.documento_input.text()
+        # Buscar y eliminar las líneas que contienen los datos
+        lineas_actualizadas = [linea for linea in lineas if not any(dato in linea for dato in datos_a_eliminar)]
 
-        # Realizar la búsqueda en el archivo plano
-        with open("clientes.txt", "r") as file:
-            for line in file:
-                data = line.strip().split(",")
-                if data[0] == documento:
-                    # Si se encuentra el documento, rellenar el formulario
-                    self.nombre_input.setText(data[1])
-                    self.apellido_input.setText(data[2])
-                    self.direccion_input.setText(data[3])
-                    self.campo4_input.setText(data[4])
-                    self.campo5_input.setText(data[5])
-                    self.campo6_combobox.setCurrentText(data[6])
-                    self.campo7_combobox.setCurrentText(data[7])
-                    break  # Terminar el bucle después de encontrar el documento
+        # Verificar si se encontraron líneas para eliminar
+        if len(lineas_actualizadas) < len(lineas):
+            # Escribir las líneas actualizadas en el archivo
+            with open(archivo, "w") as file:
+                file.writelines(lineas_actualizadas)
+
+            self.label.setText("La(s) línea(s) ha(n) sido eliminada(s).")
+        else:
+            self.label.setText("No se encontraron líneas con los datos proporcionados.")
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
     sys.exit(app.exec_())
+
 
 
 

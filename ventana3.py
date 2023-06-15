@@ -567,21 +567,49 @@ class Ventana3(QMainWindow):
                 if data[0] == documento:
                     # Si se encuentra el documento, rellenar el formulario
                     self.line_edit.setText(data[1])
+                    self.line_edit.setReadOnly(True)
                     self.line_edit2.setText(data[2])
+                    self.line_edit2.setReadOnly(True)
                     self.line_edit3.setText(data[3])
+                    self.line_edit3.setReadOnly(True)
                     self.line_edit4.setText(data[4])
+                    self.line_edit4.setReadOnly(True)
                     self.lista_desplegable.setCurrentText(data[5])
+                    self.lista_desplegable.setDisabled(True)
                     self.line_edit7.setText(data[6])
+                    self.line_edit7.setReadOnly(True)
                     self.lista_desplegable1.setCurrentText(data[7])
+                    self.lista_desplegable1.setDisabled(True)
                     encontrado = True
                     break  # Terminar el bucle después de encontrar el documento
 
-        self.line_edit6.clear()
+                    self.button_limpiar.clicked.connect(self.on_Button_Clicked_limpiar)
 
         if not encontrado:
             QMessageBox.warning(self, "Error",
                                 "El documento no encontrado"
                                 "\nEl documento no existe.")
+
+            self.line_edit6.clear()
+
+    def on_Button_Clicked_limpiar(self): # Comprobar el valor del barbero
+        self.line_edit.clear()
+        self.line_edit2.clear()
+        self.line_edit3.clear()
+        self.line_edit4.clear()
+        self.line_edit6.clear()
+        self.line_edit7.clear()
+        self.lista_desplegable.setCurrentIndex(0)
+        self.lista_desplegable1.setCurrentIndex(0)
+
+        # Restablecer la propiedad readOnly a False
+        self.line_edit.setReadOnly(False)
+        self.line_edit2.setReadOnly(False)
+        self.line_edit7.setReadOnly(False)
+
+        # Habilitar las listas desplegables
+        self.lista_desplegable.setEnabled(True)
+        self.lista_desplegable1.setEnabled(True)
 
     def initUI(self):
         self.setWindowTitle('Ventana3')
