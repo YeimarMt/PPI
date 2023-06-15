@@ -550,10 +550,72 @@ class Ventana3(QMainWindow):
             QMessageBox.information(self, "Datos Guardados", "Los datos han sido guardados correctamente.")
 
     def on_Button_Clicked_editar(self):
-        pass
+        documento = self.line_edit6.text()
+
+        # Realizar la búsqueda en el archivo plano
+        encontrado = False
+        nuevos_datos = []
+
+        with open("clientes.txt", "r") as file:
+            for line in file:
+                data = line.strip().split(",")
+                if data[0] == documento:
+                    # Habilitar la edición de los campos
+                    self.line_edit3.setReadOnly(False)
+                    self.line_edit4.setReadOnly(False)
+                    self.line_edit6.setReadOnly(True)
+                    self.lista_desplegable.setDisabled(False)
+                    self.lista_desplegable1.setDisabled(False)
+
+                    # Establecer los valores actuales en los campos de edición
+                    self.line_edit.setText(data[1])
+                    self.line_edit2.setText(data[2])
+                    self.line_edit3.setText(data[3])
+                    self.line_edit4.setText(data[4])
+                    self.lista_desplegable.setCurrentText(data[5])
+                    self.line_edit7.setText(data[6])
+                    self.lista_desplegable1.setCurrentText(data[7])
+
+                    encontrado = True
+                nuevos_datos.append(','.join(data))
+
 
     def on_Button_Clicked_actualizar(self):
-        pass
+        documento = self.line_edit6.text()
+
+        # Realizar la búsqueda en el archivo plano
+        encontrado = False
+        nuevos_datos = []
+
+        with open("clientes.txt", "r") as file:
+            for line in file:
+                data = line.strip().split(",")
+                if data[0] == documento:
+                    # Obtener los nuevos valores ingresados en los campos de edición
+                    nuevos_valores = [
+                        self.line_edit.text(),
+                        self.line_edit2.text(),
+                        self.line_edit3.text(),
+                        self.line_edit4.text(),
+                        self.lista_desplegable.currentText(),
+                        self.line_edit7.text(),
+                        self.lista_desplegable1.currentText()
+                    ]
+
+                    # Actualizar los datos del cliente en la lista
+                    data[1:] = nuevos_valores
+
+                    encontrado = True
+                nuevos_datos.append(','.join(data))
+
+        if encontrado:
+            # Guardar los cambios en el archivo plano
+            with open("clientes.txt", "w") as file:
+                file.write('\n'.join(nuevos_datos))
+            QMessageBox.information(self, "Éxito", "La información se ha actualizado y guardado correctamente.")
+        else:
+            QMessageBox.warning(self, "Error", "Documento no encontrado\nEl documento no existe.")
+
 
     def on_Button_Clicked_eliminar(self):
             documento = self.line_edit6.text()
