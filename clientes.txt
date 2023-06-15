@@ -1,5 +1,5 @@
 1033177728,Samuel,Pelaez Torres ,16/06/2023,08:00:00 A. M.,Bases solas,3215645504,Barbero 1
 43829244,Sara ,Pelaez ,16/06/2023,09:00:00 A. M.,Solo barba,3045714394,Barbero 2
-1000290414,Jhon,Pelaez,17/06/2023,10:00:00 A. M.,Solo barba,121321321321,Barbero 1
 98669829,Juan David ,Velasquez ,23/06/2023,11:00:00 A. M.,Solo barba,3212121212,Barbero 2
 1033177729,Santiago,Alvarez ,01/07/2023,06:00:00 A. M.,Bases solas,3123654768,Barbero 2
+438292455,Aida ,Torres ,30/06/2023,02:00:00 P. M.,Bases solas,31231231234,Barbero 1

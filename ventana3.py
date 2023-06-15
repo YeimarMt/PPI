@@ -549,7 +549,40 @@ class Ventana3(QMainWindow):
         pass
 
     def on_Button_Clicked_eliminar(self):
-        pass
+            documento = self.line_edit6.text()
+
+            # Confirmar eliminación
+            confirmar = QMessageBox.question(self, "Confirmacion",
+                                             "¿Estás seguro de que quieres eliminar el cliente?",
+                                             QMessageBox.Yes | QMessageBox.No)
+
+            if confirmar == QMessageBox.Yes:
+                # Buscar y eliminar la línea en el archivo plano
+                lines = []
+                encontrado = False
+
+                with open("clientes.txt", "r") as file:
+                    for line in file:
+                        data = line.strip().split(",")
+                        if data[0] != documento:
+                            lines.append(line)
+                        else:
+                            encontrado = True
+
+                if encontrado:
+                    with open("clientes.txt", "w") as file:
+                        file.writelines(lines)
+
+                    QMessageBox.information(self, "Eliminado",
+                                            "El cliente se ha eliminado exitosamente.")
+                else:
+                    QMessageBox.warning(self, "Error",
+                                        "Documento no encontrado"
+                                        "\nEl documento no existe.")
+
+                # Limpiar los campos después de eliminar
+                self.on_Button_Clicked_limpiar()
+
 
     def on_Button_Clicked_buscar(self):
         documento = self.line_edit6.text()
@@ -583,7 +616,7 @@ class Ventana3(QMainWindow):
 
         if not encontrado:
             QMessageBox.warning(self, "Error",
-                                "El documento no encontrado"
+                                "Documento no encontrado"
                                 "\nEl documento no existe.")
 
             self.line_edit6.clear()
