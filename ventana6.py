@@ -1,5 +1,7 @@
 import sys
 from datetime import datetime
+
+from PyQt5 import QtWidgets
 from PyQt5.QtGui import QIcon, QFont, QPixmap
 from PyQt5.QtWidgets import QDesktopWidget, QLabel, QApplication, QMainWindow, QTableWidgetItem, QTableWidget, \
     QFormLayout, QWidget, QVBoxLayout, QHeaderView, QPushButton
@@ -65,10 +67,10 @@ class Ventana6(QMainWindow):
 
 
         # Leer los datos del archivo
-        self.datos = self.leer_archivo('clientes.txt')
+        self.datos1 = self.leer_archivo('clientes.txt')
 
         # Configurar la tabla
-        self.table.setRowCount(len(self.datos))
+        self.table.setRowCount(len(self.datos1))
         self.table.setColumnCount(8)  # Supongamos que tienes 8 columnas en tu archivo
 
         # Establecer encabezados de columna
@@ -80,10 +82,10 @@ class Ventana6(QMainWindow):
 
         # Llenar la tabla con los datos
         # Obtener la columna de fechas
-        fechas = [datetime.strptime(fila[3], '%d/%m/%Y') for fila in self.datos]
+        fechas = [datetime.strptime(fila[3], '%d/%m/%Y') for fila in self.datos1]
 
         # Ordenar los datos en función de las fechas de forma ascendente
-        sorted_datos = sorted(self.datos, key=lambda fila: datetime.strptime(fila[3], '%d/%m/%Y'))
+        sorted_datos = sorted(self.datos1, key=lambda fila: datetime.strptime(fila[3], '%d/%m/%Y'))
 
         # Configurar la tabla
         self.table.setRowCount(len(sorted_datos))
@@ -138,14 +140,16 @@ class Ventana6(QMainWindow):
         self.central_widget.setStyleSheet("border: none;")
 
     def leer_archivo(self, archivo):
-        # Leer el archivo y devolver los datos como una lista de filas
+        # Leer el archivo y devolver los datos filtrados como una lista de filas
         with open(archivo, 'r') as file:
-            self.datos = [linea.strip().split(',') for linea in file]
-        return self.datos
+            self.datos1 = [linea.strip().split(',') for linea in file if len(linea.strip().split(',')) >= 8 and linea.strip().split(',')[7] == 'Barbero 2']
+        return self.datos1
 
     def on_Button_Clicked_volver(self):
         self.ventana_anterior.show()  # Mostrar la ventana anterior
         self.close()  # Cerrar la ventana actual
+
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

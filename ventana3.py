@@ -7,6 +7,9 @@ from PyQt5.QtWidgets import QDesktopWidget, QLabel, QApplication, QMainWindow, Q
     QFormLayout, QWidget, QVBoxLayout, QComboBox, QBoxLayout, QCalendarWidget, QProgressBar, QMessageBox, QTimeEdit, \
     QGridLayout, QFrame
 
+from ventana5 import Ventana5
+from ventana6 import Ventana6
+
 from ventana4 import Ventana4
 
 
@@ -405,7 +408,6 @@ class Ventana3(QMainWindow):
         self.ventanaAnterior.show()
 
     def guardar_datos(self):
-        # Obtiene el texto ingresado en los cuadros de texto
         self.texto1 = self.line_edit.text()
         self.texto2 = self.line_edit2.text()
         self.texto3 = self.line_edit3.text()
@@ -415,25 +417,25 @@ class Ventana3(QMainWindow):
         self.texto7 = self.line_edit7.text()
         self.texto8 = self.lista_desplegable1.currentText()
 
-        fecha_repetida = False
-        fecha_actual = self.line_edit3.text()
+        hora_repetida = False
+        hora_actual = self.line_edit4.text()
 
         with open("clientes.txt", "r") as archivo:
             lineas = archivo.readlines()
             contador = 0
             for linea in lineas:
-                if fecha_actual in linea:
+                if hora_actual in linea:
                     contador += 1
                     if contador >= 2:
-                        fecha_repetida = True
+                        hora_repetida = True
                         break
 
         if self.texto1 == "" or self.texto2 == "" or self.texto3 == "" or self.texto4 == "" or self.texto5 == "" or self.texto6 == "" or self.texto7 == "" or self.texto8 == "":
             # Mostrar mensaje de campos vacíos
             QMessageBox.warning(self, "Campos Vacíos", "Por favor, complete todos los campos.")
-        elif fecha_repetida:
-            QMessageBox.warning(self, "Fecha Repetida", "La fecha ya ha sido agregada dos veces.")
-
+        elif hora_repetida:
+            QMessageBox.warning(self, "Hora Repetida", "La hora ya ha sido agregada dos veces."
+                                                       "\nIngrese otra hora.")
         else:
             # Guarda los datos en un archivo de texto
             with open("clientes.txt", "a") as archivo:
@@ -446,22 +448,23 @@ class Ventana3(QMainWindow):
                 archivo.write(self.texto7 + ",")
                 archivo.write(self.texto8 + "\n")
 
-                # Limpiar los campos
-                self.line_edit.clear()
-                self.line_edit2.clear()
-                self.line_edit3.clear()
-                self.line_edit4.clear()
-                # Restablecer el valor seleccionado en la lista desplegable
-                self.lista_desplegable.setCurrentIndex(0)
-                self.line_edit6.clear()
-                self.line_edit7.clear()
-                self.lista_desplegable1.setCurrentIndex(0)
+            # Limpiar los campos
+            self.line_edit.clear()
+            self.line_edit2.clear()
+            self.line_edit3.clear()
+            self.line_edit4.clear()
+            # Restablecer el valor seleccionado en la lista desplegable
+            self.lista_desplegable.setCurrentIndex(0)
+            self.line_edit6.clear()
+            self.line_edit7.clear()
+            self.lista_desplegable1.setCurrentIndex(0)
 
             # Mostrar mensaje de datos guardados exitosamente
             QMessageBox.information(self, "Datos Guardados", "Los datos han sido guardados correctamente.")
 
 
-    def on_Button_Clicked_limpiar(self):
+
+    def on_Button_Clicked_limpiar(self): # Comprobar el valor del barbero
         self.line_edit.clear()
         self.line_edit2.clear()
         self.line_edit3.clear()

@@ -32,8 +32,4 @@ class Ventana4(QMainWindow):
             datos = [linea.strip().split('\t') for linea in file]
         return datos
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ventana = Ventana4()
-    ventana.show()
-    sys.exit(app.exec_())
+

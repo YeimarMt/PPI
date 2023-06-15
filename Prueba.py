@@ -10,9 +10,7 @@ class Ventana5(QMainWindow):
     def __init__(self, ventana_anterior):
         super().__init__()
         self.ventana_anterior = ventana_anterior
-        self.initUI()
 
-    def initUI(self):
         self.setWindowTitle('CONSULTA')
         self.setWindowIcon(QIcon('Imagenes/logo1.png'))
 

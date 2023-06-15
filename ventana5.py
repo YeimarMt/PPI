@@ -1,4 +1,6 @@
 import sys
+
+from PyQt5 import QtWidgets
 from PyQt5.QtGui import QIcon, QFont, QPixmap
 from PyQt5.QtWidgets import QDesktopWidget, QLabel, QApplication, QMainWindow, QTableWidgetItem, QTableWidget, \
     QFormLayout, QWidget, QVBoxLayout, QHeaderView, QPushButton
@@ -132,14 +134,15 @@ class Ventana5(QMainWindow):
         self.central_widget.setStyleSheet("border: none;")
 
     def leer_archivo(self, archivo):
-        # Leer el archivo y devolver los datos como una lista de filas
+        # Leer el archivo y devolver los datos filtrados como una lista de filas
         with open(archivo, 'r') as file:
-            self.datos = [linea.strip().split(',') for linea in file]
+            self.datos = [linea.strip().split(',') for linea in file if len(linea.strip().split(',')) >= 8 and linea.strip().split(',')[7] == 'Barbero 1']
         return self.datos
 
     def on_Button_Clicked_volver(self):
         self.ventana_anterior.show()  # Mostrar la ventana anterior
         self.close()  # Cerrar la ventana actual
+
 
 
 if __name__ == '__main__':
