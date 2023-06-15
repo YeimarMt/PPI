@@ -2,4 +2,5 @@
 98669829,Juan David ,Velasquez ,23/06/2023,11:00:00 A. M.,Solo barba,3212121212,Barbero 2
 1033177729,Santiago,Alvarez ,01/07/2023,06:00:00 A. M.,Bases solas,3123654768,Barbero 2
 438292455,Aida ,Torres ,30/06/2023,02:00:00 P. M.,Bases solas,31231231234,Barbero 1
-1076818700,yeimar alejandro,lozano valencia,16/06/2023,03:30:00 P.M.,Corte Completo,3209876543,Barbero 2
+1076818700,yeimar alejandro,lozano valencia,16/06/2023,03:30:00 P.M.,Corte Completo,3209876543,Barbero 1
+1033177728,Samuel,Pelaez Torres ,31/07/2023,04:00:00 P. M.,Barba y corte,3215645504,Barbero 2

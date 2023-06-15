@@ -581,41 +581,58 @@ class Ventana3(QMainWindow):
 
 
     def on_Button_Clicked_actualizar(self):
-        documento = self.line_edit6.text()
+            documento = self.line_edit6.text()
 
-        # Realizar la búsqueda en el archivo plano
-        encontrado = False
-        nuevos_datos = []
+            # Realizar la búsqueda en el archivo plano
+            encontrado = False
+            nuevos_datos = []
 
-        with open("clientes.txt", "r") as file:
-            for line in file:
-                data = line.strip().split(",")
-                if data[0] == documento:
-                    # Obtener los nuevos valores ingresados en los campos de edición
-                    nuevos_valores = [
-                        self.line_edit.text(),
-                        self.line_edit2.text(),
-                        self.line_edit3.text(),
-                        self.line_edit4.text(),
-                        self.lista_desplegable.currentText(),
-                        self.line_edit7.text(),
-                        self.lista_desplegable1.currentText()
-                    ]
+            with open("clientes.txt", "r") as file:
+                for line in file:
+                    data = line.strip().split(",")
+                    if data[0] == documento:
+                        # Obtener los nuevos valores ingresados en los campos de edición
+                        nuevos_valores = [
+                            self.line_edit.text(),
+                            self.line_edit2.text(),
+                            self.line_edit3.text(),
+                            self.line_edit4.text(),
+                            self.lista_desplegable.currentText(),
+                            self.line_edit7.text(),
+                            self.lista_desplegable1.currentText()
+                        ]
 
-                    # Actualizar los datos del cliente en la lista
-                    data[1:] = nuevos_valores
+                        # Actualizar los datos del cliente en la lista
+                        data[1:] = nuevos_valores
 
-                    encontrado = True
-                nuevos_datos.append(','.join(data))
+                        encontrado = True
+                    nuevos_datos.append(','.join(data))
 
-        if encontrado:
-            # Guardar los cambios en el archivo plano
-            with open("clientes.txt", "w") as file:
-                file.write('\n'.join(nuevos_datos))
-            QMessageBox.information(self, "Éxito", "La información se ha actualizado y guardado correctamente.")
-        else:
-            QMessageBox.warning(self, "Error", "Documento no encontrado\nEl documento no existe.")
+            if encontrado:
+                # Guardar los cambios en el archivo plano
+                with open("clientes.txt", "w") as file:
+                    file.write('\n'.join(nuevos_datos))
+                QMessageBox.information(self, "Éxito", "La información se ha actualizado y guardado correctamente.")
 
+                # Limpiar los campos
+                self.line_edit.clear()
+                self.line_edit.setReadOnly(False)
+                self.line_edit2.clear()
+                self.line_edit2.setReadOnly(False)
+                self.line_edit3.clear()
+                self.line_edit3.setReadOnly(False)
+                self.line_edit4.clear()
+                self.line_edit4.setReadOnly(False)
+                self.line_edit6.clear()
+                self.line_edit6.setReadOnly(False)
+                self.line_edit7.clear()
+                self.line_edit7.setReadOnly(False)
+
+                # Restaurar valores editados
+                self.lista_desplegable.setCurrentIndex(0)
+                self.lista_desplegable1.setCurrentIndex(0)
+            else:
+                QMessageBox.warning(self, "Error", "Documento no encontrado\nEl documento no existe.")
 
     def on_Button_Clicked_eliminar(self):
             documento = self.line_edit6.text()
@@ -651,7 +668,6 @@ class Ventana3(QMainWindow):
 
                 # Limpiar los campos después de eliminar
                 self.on_Button_Clicked_limpiar()
-
 
     def on_Button_Clicked_buscar(self):
         documento = self.line_edit6.text()
