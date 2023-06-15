@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5 import QtCore
+from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt, QDate, QTimer, QTime
 from PyQt5.QtGui import QIcon, QFont, QPixmap, QIntValidator
 from PyQt5.QtWidgets import QDesktopWidget, QLabel, QApplication, QMainWindow, QHBoxLayout, QPushButton, QLineEdit, \
@@ -37,6 +37,8 @@ class Ventana3(QMainWindow):
 
         #Establecemos el fondo pricipal
         self.fondo = QLabel(self)
+
+        self.result_label = QtWidgets.QLabel(self)
 
         # Estabelecemos la ventana de fondo con la venta central
         self.setCentralWidget(self.fondo)
@@ -173,7 +175,7 @@ class Ventana3(QMainWindow):
 
         # Creamos un objeto QLineEdit para el campo de texto
         self.line_edit7 = QLineEdit(self)
-        self.line_edit7.setPlaceholderText("Ingresa telefono")
+        self.line_edit7.setPlaceholderText("Ingrese telefono...")
         self.line_edit7.setStyleSheet("background-color: #A3D0D7 ; color: #000000; border-radius:7px;")
         self.font = QFont("Arial Rounded MT Bold", 9)
         self.line_edit7.setFont(self.font)
@@ -376,8 +378,6 @@ class Ventana3(QMainWindow):
         self.form_layout.addRow(self.hbox)
         self.form_layout.addRow(self.hbox1)
 
-
-
         self.widget1 = QWidget()
         self.widget1.setLayout(self.form_layout)
 
@@ -466,6 +466,9 @@ class Ventana3(QMainWindow):
 
         self.setCentralWidget(self.widget_central)
 
+        self.data_eliminar = None  # Variable para almacenar el dato a eliminar
+
+
     def update_time(self):
         current_time = QTime.currentTime()
         self.clock_label.setText(current_time.toString("hh:mm:ss AP"))  # Cambiar el formato a 12 horas con AM/PM
@@ -539,22 +542,15 @@ class Ventana3(QMainWindow):
             # Mostrar mensaje de datos guardados exitosamente
             QMessageBox.information(self, "Datos Guardados", "Los datos han sido guardados correctamente.")
 
-    def on_Button_Clicked_limpiar(self): # Comprobar el valor del barbero
-        self.line_edit.clear()
-        self.line_edit2.clear()
-        self.line_edit3.clear()
-        self.line_edit4.clear()
-        self.line_edit6.clear()
-        self.line_edit7.clear()
-        self.lista_desplegable.setCurrentIndex(0)
-        self.lista_desplegable1.setCurrentIndex(0)
-
     def on_Button_Clicked_editar(self):
         pass
-    def on_Button_Clicked_eliminar(self):
-        pass
+
     def on_Button_Clicked_actualizar(self):
         pass
+
+    def on_Button_Clicked_eliminar(self):
+        pass
+
     def on_Button_Clicked_buscar(self):
         documento = self.line_edit6.text()
 
