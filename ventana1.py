@@ -150,8 +150,6 @@ class Ventana1(QMainWindow):
         # Establecemos el layout principal en la ventana
         self.setCentralWidget(self.widget_central)
 
-
-
     def on_button_clicked(self):
         usuario = self.line_edit.text()
         contrasena = self.line_edit2.text()
@@ -177,8 +175,8 @@ class Ventana1(QMainWindow):
 
     def verificar_usuario(self, usuario, contrasena):
         admin1 = {
-            "usuario": "",
-            "contrasena": ""
+            "usuario": "Admin",
+            "contrasena": "12345"
         }
 
         if usuario == admin1["usuario"] and contrasena == admin1["contrasena"]:
@@ -186,13 +184,9 @@ class Ventana1(QMainWindow):
         else:
             return False
 
-
     def initUI(self):
         self.setWindowTitle('Ventana1')
         self.setWindowIcon(QIcon('Imagenes/logo1.png'))
-
-
-
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

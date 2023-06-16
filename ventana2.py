@@ -118,8 +118,6 @@ class Ventana2(QMainWindow):
             "border-radius:5px;")
         self.boton2.clicked.connect(self.on_Button_Clicked2)
 
-
-
     def on_Button_Clicked(self):
             self.hide()
             self.ventana3 = Ventana3(self)
@@ -130,11 +128,9 @@ class Ventana2(QMainWindow):
             self.ventana4 = Ventana4(self)
             self.ventana4.show()
 
-
     def on_Button_Clicked2(self):
         self.hide()
         self.ventanaAnterior.show()
-
 
     def initUI(self):
         self.setWindowTitle('Ventana2')

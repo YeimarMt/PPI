@@ -577,8 +577,11 @@ class Ventana3(QMainWindow):
                     self.lista_desplegable1.setCurrentText(data[7])
 
                     encontrado = True
-                nuevos_datos.append(','.join(data))
 
+                    # Mostrar mensaje de box
+                    QMessageBox.information(self,"Edición habilitada", "Se ha habilitado la edición.")
+
+                nuevos_datos.append(','.join(data))
 
     def on_Button_Clicked_actualizar(self):
             documento = self.line_edit6.text()
