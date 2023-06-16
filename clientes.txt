@@ -3,4 +3,6 @@
 1033177729,Santiago,Alvarez ,01/07/2023,06:00:00 A. M.,Bases solas,3123654768,Barbero 2
 438292455,Aida ,Torres ,30/06/2023,02:00:00 P. M.,Bases solas,31231231234,Barbero 1
 1076818700,yeimar alejandro,lozano valencia,16/06/2023,03:30:00 P.M.,Corte Completo,3209876543,Barbero 1
-1033177728,Samuel,Pelaez Torres ,31/07/2023,04:00:00 P. M.,Corte Completo,3215645504,Barbero 2
+1033177728,Samuel,Pelaez Torres ,31/07/2023,04:00:00 P. M.,Solo barba,3215645504,Barbero 2123456789,Juan Estiven ,Posada Rua ,28/06/2023,10:00:00 A. M.,Cejas,3041513413,Barbero 1
+987654321,Tomas ,Morales ,21/06/2023,10:00:00 A. M.,Barba y corte,3213951305,Barbero 1
+1111111111,Pablo Andres ,Torres ,22/06/2023,11:00:00 A. M.,Bases solas,241253511423,Barbero 1

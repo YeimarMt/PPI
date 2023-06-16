@@ -521,7 +521,7 @@ class Ventana3(QMainWindow):
             # Mostrar mensaje de campos vacíos
             QMessageBox.warning(self, "Campos Vacíos", "Por favor, complete todos los campos.")
         elif hora_repetida:
-            QMessageBox.warning(self, "Hora Repetida", "La hora ya ha sido agregada dos veces."
+            QMessageBox.warning(self, "Hora Repetida", "La hora ya esta reservada."
                                                        "\nIngrese otra hora.")
         else:
             # Guarda los datos en un archivo de texto
